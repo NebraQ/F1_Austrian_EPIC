@@ -56,6 +56,7 @@ const translations = {
         level: "Level",
         select: "Auswählen",
         boost10: "+10%",
+        lapsLabel: "Runden",
 
         // Fahrer-Attribute
         attr_o: "Überholen",
@@ -95,6 +96,7 @@ const translations = {
         level: "Level",
         select: "Select",
         boost10: "+10%",
+        lapsLabel: "Laps",
 
         attr_o: "Overtaking",
         attr_d: "Defending",
@@ -261,32 +263,38 @@ function formatTrackAttrs(track) {
     const a2 = translateAttrLabel(track.main2);
     return `${a1} | ${a2}`;
 }
+function formatLaps(track) {
+    if (!track || !track.laps) return "";
+    const t = translations[currentLang];
+    return `${t.lapsLabel}: ${track.laps}`;
+}
 
 const tracks = [
-    { id:1,  name:"Melbourne", main1:"Rennstart", main2:"Tempo", img:"01_Melbourne.png" },
-    { id:2,  name:"Jeddah", main1:"Reifenmanagement", main2:"Tempo", img:"02_Jeddah.png" },
-    { id:3,  name:"Miami", main1:"Verteidigen", main2:"Tempo", img:"03_Miami.png" },
-    { id:4,  name:"Silverstone", main1:"Reifenmanagement", main2:"Tempo", img:"04_Silverstone.png" },
-    { id:5,  name:"Monaco", main1:"Verteidigen", main2:"Kurvenverhalten", img:"05_Monaco.png" },
-    { id:6,  name:"Spielberg", main1:"Verteidigen", main2:"Tempo", img:"06_Spielberg.png" },
-    { id:7,  name:"Monza", main1:"Verteidigen", main2:"Tempo", img:"07_Monza.png" },
-    { id:8,  name:"Montreal", main1:"Überholen", main2:"Kurvenverhalten", img:"08_Montreal.png" },
-    { id:9,  name:"Hungaroring", main1:"Rennstart", main2:"Kurvenverhalten", img:"09_Hungaroring.png" },
-    { id:10, name:"Zandvoort", main1:"Verteidigen", main2:"Kurvenverhalten", img:"10_Zandvoort.png" },
-    { id:11, name:"Austin", main1:"Reifenmanagement", main2:"Kurvenverhalten", img:"11_Austin.png" },
-    { id:12, name:"Shanghai", main1:"Überholen", main2:"Antrieb", img:"12_Shanghai.png" },
-    { id:13, name:"Baku", main1:"Überholen", main2:"Tempo", img:"13_Baku.png" },
-    { id:14, name:"SaoPaulo", main1:"Überholen", main2:"Kurvenverhalten", img:"14_SaoPaulo.png" },
-    { id:15, name:"Las Vegas", main1:"Überholen", main2:"Tempo", img:"15_LasVegas.png" },
-    { id:16, name:"Imola", main1:"Rennstart", main2:"Antrieb", img:"16_Imola.png" },
-    { id:17, name:"Singapur", main1:"Rennstart", main2:"Antrieb", img:"17_Singapur.png" },
-    { id:18, name:"Mexico", main1:"Rennstart", main2:"Antrieb", img:"18_Mexico.png" },
-    { id:19, name:"Spa", main1:"Reifenmanagement", main2:"Antrieb", img:"19_Spa.png" },
-    { id:20, name:"AbuDhabi", main1:"Überholen", main2:"Antrieb", img:"20_AbuDhabi.png" },
-    { id:21, name:"Sakhir", main1:"Reifenmanagement", main2:"Antrieb", img:"21_Sakhir.png" },
-    { id:22, name:"Barcelona", main1:"Reifenmanagement", main2:"Kurvenverhalten", img:"22_Barcelona.png" },
-    { id:23, name:"Suzuka", main1:"Verteidigen", main2:"Kurvenverhalten", img:"23_Suzuka.png" }
+    { id:1,  name:"Melbourne",  main1:"Rennstart",        main2:"Tempo",           img:"01_Melbourne.png",  laps: 9 },
+    { id:2,  name:"Jeddah",     main1:"Reifenmanagement", main2:"Tempo",           img:"02_Jeddah.png",     laps: 8 },
+    { id:3,  name:"Miami",      main1:"Verteidigen",      main2:"Tempo",           img:"03_Miami.png",      laps: 6 },
+    { id:4,  name:"Silverstone",main1:"Reifenmanagement", main2:"Tempo",           img:"04_Silverstone.png",laps: 8 },
+    { id:5,  name:"Monaco",     main1:"Verteidigen",      main2:"Kurvenverhalten", img:"05_Monaco.png",     laps: 7 },
+    { id:6,  name:"Spielberg",  main1:"Verteidigen",      main2:"Tempo",           img:"06_Spielberg.png",  laps: 10 },
+    { id:7,  name:"Monza",      main1:"Verteidigen",      main2:"Tempo",           img:"07_Monza.png",      laps: 9 },
+    { id:8,  name:"Montreal",   main1:"Überholen",        main2:"Kurvenverhalten", img:"08_Montreal.png",   laps: 8 },
+    { id:9,  name:"Hungaroring",main1:"Rennstart",        main2:"Kurvenverhalten", img:"09_Hungaroring.png",laps: 9 },
+    { id:10, name:"Zandvoort",  main1:"Verteidigen",      main2:"Kurvenverhalten", img:"10_Zandvoort.png",  laps: 8 },
+    { id:11, name:"Austin",     main1:"Reifenmanagement", main2:"Kurvenverhalten", img:"11_Austin.png",     laps: 6 },
+    { id:12, name:"Shanghai",   main1:"Überholen",        main2:"Antrieb",         img:"12_Shanghai.png",   laps: 7 },
+    { id:13, name:"Baku",       main1:"Überholen",        main2:"Tempo",           img:"13_Baku.png",       laps: 7 },
+    { id:14, name:"SaoPaulo",   main1:"Überholen",        main2:"Kurvenverhalten", img:"14_SaoPaulo.png",   laps: 9 },
+    { id:15, name:"Las Vegas",  main1:"Überholen",        main2:"Tempo",           img:"15_LasVegas.png",   laps: 6 },
+    { id:16, name:"Imola",      main1:"Rennstart",        main2:"Antrieb",         img:"16_Imola.png",      laps: 9 },
+    { id:17, name:"Singapur",   main1:"Rennstart",        main2:"Antrieb",         img:"17_Singapur.png",   laps: 6 },
+    { id:18, name:"Mexico",     main1:"Rennstart",        main2:"Antrieb",         img:"18_Mexico.png",     laps: 9 },
+    { id:19, name:"Spa",        main1:"Reifenmanagement", main2:"Antrieb",         img:"19_Spa.png",        laps: 6 },
+    { id:20, name:"AbuDhabi",   main1:"Überholen",        main2:"Antrieb",         img:"20_AbuDhabi.png",   laps: 8 },
+    { id:21, name:"Sakhir",     main1:"Reifenmanagement", main2:"Antrieb",         img:"21_Sakhir.png",     laps: 8 },
+    { id:22, name:"Barcelona",  main1:"Reifenmanagement", main2:"Kurvenverhalten", img:"22_Barcelona.png",  laps: 10 },
+    { id:23, name:"Suzuka",     main1:"Verteidigen",      main2:"Kurvenverhalten", img:"23_Suzuka.png",     laps: 7 }
 ];
+
 
 
 /* ---------------------------------------
@@ -386,6 +394,7 @@ function renderEventPlanner() {
                         <option>Hard/Soft</option>
                         <option>Hard/Med</option>
                         <option>Hard/Hard</option>
+                        <option>Wets/Wets</option>
                         <option>Soft/Soft/Soft</option>
                         <option>Soft/Soft/Med</option>
                         <option>Soft/Med/Soft</option>
@@ -414,6 +423,7 @@ function renderEventPlanner() {
                         <option>Hard/Soft</option>
                         <option>Hard/Med</option>
                         <option>Hard/Hard</option>
+                        <option>Wets/Wets</option>
                         <option>Soft/Soft/Soft</option>
                         <option>Soft/Soft/Med</option>
                         <option>Soft/Med/Soft</option>
@@ -427,7 +437,7 @@ function renderEventPlanner() {
             </div>
 
             <div style="margin-top:8px;">
-                ${t.boost}: <input id="ev-boost-${i}" class="event-input" style="width:80px;">
+                ${t.boost}: <input id="ev-boost-${i}" class="event-input" style="width:140px;">
             </div>
 
             <div>
@@ -438,20 +448,27 @@ function renderEventPlanner() {
         eventBox.appendChild(row);
     }
 }
+
+
 function updateEventAttrsRow(i) {
     const sel = document.getElementById(`ev-track-${i}`);
     const out = document.getElementById(`ev-attrs-${i}`);
-    if (!sel || !out) return;
+    const lapsEl = document.getElementById(`ev-laps-${i}`);
+    if (!sel || !out || !lapsEl) return;
 
     const track = tracks.find(t => t.name === sel.value);
     out.textContent = track ? formatTrackAttrs(track) : "";
+    lapsEl.textContent = track ? formatLaps(track) : "";
 }
 
-function updateAllEventAttrs() {
+function updateAllEventAttrsAndLaps() {
     for (let i = 1; i <= 8; i++) {
         updateEventAttrsRow(i);
     }
 }
+
+
+
     // ...
     eventBox.appendChild(row);
 }
@@ -897,7 +914,8 @@ function saveState() {
             tyreA:   document.getElementById(`ev-tyreA-${i}`)?.value || "",
             driverB: document.getElementById(`ev-driverB-${i}`)?.value || "",
             tyreB:   document.getElementById(`ev-tyreB-${i}`)?.value || "",
-            boost:   document.getElementById(`ev-boost-${i}`)?.value || ""
+            boost:   document.getElementById(`ev-boost-${i}`)?.value || "",
+            rain:    !!eventRainState[i]
         });
     }
 
@@ -938,26 +956,36 @@ function loadState() {
     }
 
     // Event‐Planner
-    if (state.event && state.event.length) {
-        for (let i = 1; i <= 8; i++) {
-            const row = state.event[i-1];
-            if (!row) continue;
+if (state.event && state.event.length) {
+    for (let i = 1; i <= 8; i++) {
+        const row = state.event[i-1];
+        if (!row) continue;
 
-            const t  = document.getElementById(`ev-track-${i}`);
-            const da = document.getElementById(`ev-driverA-${i}`);
-            const ta = document.getElementById(`ev-tyreA-${i}`);
-            const db = document.getElementById(`ev-driverB-${i}`);
-            const tb = document.getElementById(`ev-tyreB-${i}`);
-            const bo = document.getElementById(`ev-boost-${i}`);
+        const t  = document.getElementById(`ev-track-${i}`);
+        const da = document.getElementById(`ev-driverA-${i}`);
+        const ta = document.getElementById(`ev-tyreA-${i}`);
+        const db = document.getElementById(`ev-driverB-${i}`);
+        const tb = document.getElementById(`ev-tyreB-${i}`);
+        const bo = document.getElementById(`ev-boost-${i}`);
+        const rb = document.getElementById(`ev-rain-${i}`);
 
-            if (t)  t.value  = row.track  || "";
-            if (da) da.value = row.driverA || "";
-            if (ta) ta.value = row.tyreA   || "";
-            if (db) db.value = row.driverB || "";
-            if (tb) tb.value = row.tyreB   || "";
-            if (bo) bo.value = row.boost   || "";
+        if (t)  t.value  = row.track  || "";
+        if (da) da.value = row.driverA || "";
+        if (ta) ta.value = row.tyreA   || "";
+        if (db) db.value = row.driverB || "";
+        if (tb) tb.value = row.tyreB   || "";
+        if (bo) bo.value = row.boost   || "";
+
+        eventRainState[i] = !!row.rain;
+
+        if (rb) {
+            rb.classList.toggle("rain-on", !!row.rain);
+            rb.classList.toggle("rain-off", !row.rain);
         }
     }
+}
+updateAllEventAttrsAndLaps();
+
 
     // Setups
     if (state.setups && state.setups.length) {
@@ -1034,6 +1062,27 @@ function applyLanguage(lang) {
     updateAllEventAttrs();
 }
 
+let eventRainState = {};  // Rennen -> true/false
+
+function toggleRain(i) {
+    const btn = document.getElementById(`ev-rain-${i}`);
+    if (!btn) return;
+
+    const current = !!eventRainState[i];
+    const next = !current;
+    eventRainState[i] = next;
+
+    if (next) {
+        btn.classList.remove("rain-off");
+        btn.classList.add("rain-on");
+    } else {
+        btn.classList.remove("rain-on");
+        btn.classList.add("rain-off");
+    }
+    saveState();
+}
+
+
 document.getElementById("lang-switcher").addEventListener("click", (e) => {
     const lang = e.target.dataset.lang;
     if (!lang) return;
@@ -1049,8 +1098,8 @@ const eventContainer = document.getElementById("event-container");
 if (eventContainer) {
     eventContainer.addEventListener("change", (e) => {
         if (e.target && e.target.id && e.target.id.startsWith("ev-track-")) {
-            const idx = parseInt(e.target.id.replace("ev-track-", ""), 10);
-            updateEventAttrsRow(idx);
+            const idx = parseInt(e.target.id.replace("ev-track-",""), 10);
+            if (!isNaN(idx)) updateEventAttrsRow(idx);
         }
         saveState();
     });
