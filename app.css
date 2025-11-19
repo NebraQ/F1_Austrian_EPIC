@@ -1,0 +1,165 @@
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: #f4f4f4;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* APP LAYOUT */
+#app {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.screen {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: none;
+    animation: fadeIn 0.25s ease;
+}
+.screen.active {
+    display: block;
+}
+
+/* BOTTOM NAV */
+.tabbar {
+    height: 60px;
+    background: #ffffff;
+    border-top: 1px solid #ddd;
+    display: flex;
+}
+
+.tabbar button {
+    flex: 1;
+    border: none;
+    background: none;
+    font-size: 15px;
+    padding: 10px 0;
+}
+
+/* DRIVER LIST */
+.driver-card {
+    background: white;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+}
+.driver-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+.boost {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* EVENT PLANNER */
+.event-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.event-table th, .event-table td {
+    border: 1px solid #ccc;
+    padding: 6px;
+}
+.event-input {
+    width: 100%;
+}
+
+/* MAP MODAL */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal.hidden {
+    display: none;
+}
+.modal-content {
+    background: white;
+    width: 95%;
+    max-width: 1200px;
+    padding: 15px;
+    display: flex;
+    gap: 20px;
+    border-radius: 12px;
+    position: relative;
+}
+.modal-content img {
+    width: 50%;
+    border-radius: 12px;
+}
+#mapGuide {
+    width: 50%;
+    white-space: pre-line;
+    font-size: 15px;
+}
+.close {
+    font-size: 40px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+/* MOBILE */
+@media (max-width: 800px) {
+    .modal-content {
+        flex-direction: column;
+    }
+    .modal-content img {
+        width: 100%;
+    }
+    #mapGuide {
+        width: 100%;
+    }
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+/* Kürzeres Boost-Feld im Event Planner */
+.event-boost-input {
+    width: 80px;
+}
+
+/* Track-Karten (Maps & Components & evt. andere Übersichten) */
+.track-card {
+    background: white;
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin-bottom: 6px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+/* Bunte Chips für Streckenwerte */
+.attr-chip {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 999px;
+    font-size: 11px;
+    color: #fff;
+    margin-right: 4px;
+    margin-bottom: 2px;
+}
+
+/* Attribute-Farben */
+.attr-rennstart       { background: #ff9800; }
+.attr-tempo           { background: #03a9f4; }
+.attr-reifen          { background: #4caf50; }
+.attr-ueberholen      { background: #e91e63; }
+.attr-verteidigen     { background: #3f51b5; }
+.attr-kurven          { background: #9c27b0; }
+.attr-antrieb         { background: #607d8b; }
+
