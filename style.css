@@ -519,3 +519,9 @@ body.dark .boost-star.active {
         opacity: 1;
     }
 }
+.event-attrs {
+    font-size: 13px;
+    margin: 4px 0 6px;
+    font-weight: 600;
+    opacity: 0.9;
+}
