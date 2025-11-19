@@ -685,6 +685,100 @@ Zwischen T9–11 ist Boost der Schlüssel zum Überholen. DRS meist besser T14�
 `
 };
 
+/* ---------------------------------------
+   AUTO-SAVE (localStorage)
+----------------------------------------- */
+
+function saveState() {
+    const state = {
+        drivers: driverState,
+        event: [],
+        setups: []
+    };
+
+    // Event Planner (8 Rennen)
+    for (let i = 1; i <= 8; i++) {
+        state.event.push({
+            track:  document.getElementById(`ev-track-${i}`)?.value || "",
+            driverA: document.getElementById(`ev-driverA-${i}`)?.value || "",
+            tyreA:   document.getElementById(`ev-tyreA-${i}`)?.value || "",
+            driverB: document.getElementById(`ev-driverB-${i}`)?.value || "",
+            tyreB:   document.getElementById(`ev-tyreB-${i}`)?.value || "",
+            boost:   document.getElementById(`ev-boost-${i}`)?.value || ""
+        });
+    }
+
+    // Setups (8 Boxen)
+    const setupBoxes = document.querySelectorAll(".setup-box");
+    setupBoxes.forEach(box => {
+        const selects = Array.from(box.querySelectorAll("select")).map(s => s.value);
+        state.setups.push(selects);
+    });
+
+    try {
+        localStorage.setItem("ae_state_v1", JSON.stringify(state));
+    } catch (e) {
+        console.warn("Konnte App-State nicht speichern:", e);
+    }
+}
+
+function loadState() {
+    let raw = localStorage.getItem("ae_state_v1");
+    if (!raw) return;
+
+    let state;
+    try {
+        state = JSON.parse(raw);
+    } catch (e) {
+        console.warn("Konnte App-State nicht lesen:", e);
+        return;
+    }
+
+    // Fahrer
+    if (state.drivers) {
+        Object.keys(state.drivers).forEach(name => {
+            if (driverState[name]) {
+                driverState[name] = state.drivers[name];
+            }
+        });
+        renderDrivers();
+    }
+
+    // Event‐Planner
+    if (state.event && state.event.length) {
+        for (let i = 1; i <= 8; i++) {
+            const row = state.event[i-1];
+            if (!row) continue;
+
+            const t  = document.getElementById(`ev-track-${i}`);
+            const da = document.getElementById(`ev-driverA-${i}`);
+            const ta = document.getElementById(`ev-tyreA-${i}`);
+            const db = document.getElementById(`ev-driverB-${i}`);
+            const tb = document.getElementById(`ev-tyreB-${i}`);
+            const bo = document.getElementById(`ev-boost-${i}`);
+
+            if (t)  t.value  = row.track  || "";
+            if (da) da.value = row.driverA || "";
+            if (ta) ta.value = row.tyreA   || "";
+            if (db) db.value = row.driverB || "";
+            if (tb) tb.value = row.tyreB   || "";
+            if (bo) bo.value = row.boost   || "";
+        }
+    }
+
+    // Setups
+    if (state.setups && state.setups.length) {
+        const setupBoxes = document.querySelectorAll(".setup-box");
+        setupBoxes.forEach((box, idx) => {
+            const saved = state.setups[idx];
+            if (!saved) return;
+            const selects = box.querySelectorAll("select");
+            selects.forEach((sel, i) => {
+                if (saved[i]) sel.value = saved[i];
+            });
+        });
+    }
+}
 
 
 /* ---------------------------------------
