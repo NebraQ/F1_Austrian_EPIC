@@ -401,5 +401,24 @@ document.getElementById("exportPDF").onclick = () => {
     window.print();
 };
 
+/* ---------------------------------------
+   DARK MODE TOGGLE
+----------------------------------------- */
+
+const toggleDark = document.getElementById("toggleDark");
+
+if (localStorage.getItem("darkmode") === "true") {
+    document.body.classList.add("dark");
+    toggleDark.innerText = "☀️";
+}
+
+toggleDark.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+
+    const enabled = document.body.classList.contains("dark");
+    toggleDark.innerText = enabled ? "☀️" : "🌙";
+    localStorage.setItem("darkmode", enabled);
+});
+
 
 /* END OF FILE */
