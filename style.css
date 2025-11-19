@@ -337,3 +337,54 @@ header h1 {
     height: 24px;
     font-size: 14px;
 }
+
+/* -----------------------------------------
+   DARK MODE
+----------------------------------------- */
+
+body.dark {
+    background: #121212;
+    color: #e8e8e8;
+}
+
+body.dark header h1 {
+    color: #fff;
+}
+
+body.dark .nav-btn {
+    color: #ccc;
+}
+
+body.dark .nav-btn.active {
+    background: #cc0000;
+}
+
+body.dark .driver-card,
+body.dark .event-row,
+body.dark .track-entry,
+body.dark .popup-content,
+body.dark .setup-box {
+    background: #1e1e1e;
+    color: #eee;
+    box-shadow: none;
+}
+
+body.dark select,
+body.dark input {
+    background: #2a2a2a;
+    color: white;
+    border: 1px solid #444;
+}
+
+body.dark #background-logo {
+    opacity: 0.05;
+}
+
+body.dark .a-block {
+    background: rgba(255, 220, 50, 0.18);
+}
+
+body.dark .b-block {
+    background: rgba(255, 150, 50, 0.18);
+}
+
