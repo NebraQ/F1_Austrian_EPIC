@@ -468,13 +468,6 @@ function updateAllEventAttrsAndLaps() {
 }
 
 
-
-    // ...
-    eventBox.appendChild(row);{
-}
-updateAllEventAttrs();
-
-
 function openTrackGuideFromPlanner(i) {
     let name = document.getElementById(`ev-track-${i}`).value;
     if (!name) return;
