@@ -168,8 +168,18 @@ function openTrackPopup(track) {
 
     document.getElementById("popup-track-title").innerText = track.name;
     document.getElementById("popup-track-img").src = track.img;
-    document.getElementById("popup-track-guide").innerText =
-        guideTexts[track.name] || "Keine Beschreibung vorhanden.";
+
+    const guideEl = document.getElementById("popup-track-guide");
+    const text = guideTexts[track.name] || "Keine Beschreibung vorhanden.";
+
+    guideEl.innerHTML = `
+        <div class="guide-legend">
+            ⚡ = Boost &nbsp;&nbsp; 🔋 = Laden &nbsp;&nbsp; 🟢 = DRS &nbsp;&nbsp; 💤 = Neutral
+        </div>
+        <div class="guide-body"></div>
+    `;
+
+    guideEl.querySelector(".guide-body").textContent = text;
 }
 
 document.getElementById("closePopup").onclick = () => {
