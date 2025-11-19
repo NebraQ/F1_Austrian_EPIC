@@ -1135,7 +1135,6 @@ function applyLanguage(lang) {
     loadState(); // Werte wiederherstellen
        // ... nach dem Wiederherstellen von Event & Setups
     updateAllEventAttrs();
-}
 
 let eventRainState = {};  // Rennen -> true/false
 
