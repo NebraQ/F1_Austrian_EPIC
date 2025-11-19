@@ -355,43 +355,336 @@ renderSetups();
 
 const guideTexts = {
     "Melbourne": `
-Rennstart: Boost
-T1–2 Boost
-T2–3 Aufladen
-T3–7 Boost
-T7–11 Neutral
-T11–14 Boost
-Ausgang 14: Neutral + DRS
-Wiederholen & Verkehr analysieren.
+🏁 Start: ⚡ bis T1–2
+
+T1–2: ⚡
+T2–3: 🔋
+T3–7: ⚡ (Attacke)
+T7–11: 💤
+T11–14: ⚡
+ab T14: 💤 + 🟢 DRS
+
+Wiederholen & je nach Verkehr anpassen.
 `,
 
     "Jeddah": `
-Start Boost bis T2
-T1–2 Boost
-T3–12 Neutral
-T12–13 Aufladen
-T14–18 Boost
-T18–26 Neutral
-T27 Boost
-DRS danach nutzen.
+🏁 Start: ⚡ bis Ausgang T2
+
+T1–2: ⚡
+T3–12: 💤 (Feld sortiert sich)
+T12–13: 🔋
+T14–18: ⚡
+T18–26: 💤
+T27: ⚡, danach 🟢 DRS
+
+Bei Stau in T1–2 lieber etwas sparen.
 `,
 
     "Miami": `
-Start Boost
-T1–2 Boost
-T3–6 Neutral
-T7–8 Boost
-T8–11 Neutral
-T11–16 Boost
-Gerade DRS
-T17–18 Boost
-T19–1 Aufladen
-Sehr wichtig: Runde 1 auf der langen Gerade aufladen.
+🏁 Start: ⚡ bis T1–2
+
+T1–2: ⚡
+T3–6: 💤
+T7–8: ⚡
+T8–11: 💤
+T11–16: ⚡ (wichtige Push-Zone)
+lange Gerade: 🟢 + 💤
+T17–18: ⚡
+T19–1: 🔋
+
+Runde 1: lange Gerade unbedingt nutzen zum 🔋.
 `,
 
-    /* ... hier folgen ALLE ANDEREN 20 STRECKEN 1:1 aus deinem Text ... */
+    "Silverstone": `
+🏁 Start: je nach Position kurz ⚡, sonst 💤
 
+T1–2: 💤
+T3–5: ⚡
+T5–6: 🟢 + 💤
+T6–7: ⚡
+T8–14: 💤 (flüssig)
+T14–15: situativ 🔋 oder 💤
+T15–18: ⚡
+Start/Ziel: 🔋
+
+Wichtig: DRS-Zonen je nach Verkehr geschickt einsetzen.
+`,
+
+    "Monaco": `
+🏁 Start: bei guter Linie ⚡ bis Ausgang T1
+
+T1: ⚡
+T1–4: 💤
+T4–8: ⚡
+T8–10: 🔋
+T10–11: ⚡
+T11–18: 💤
+T19–1: 💤 + 🟢
+
+Sehr abhängig vom Start + Verkehr in der Haarnadel – immer Situation lesen.
+`,
+
+    "Spielberg": `
+🏁 Start: ⚡ bis Ausgang T1
+
+Ausgang T1–T3: 💤
+T3–4: 🟢 + 💤
+T4–6: ⚡ (wichtig für Positionen)
+T6–10: 💤
+T10–1: 🔋
+
+DRS verschiebt sich – oft stark zwischen T3–4 und T1–3 nutzbar.
+`,
+
+    "Monza": `
+🏁 Start: Innenbahn ⚡, Außenbahn eher 💤 und nach T2 ⚡
+
+T1–2: wenn frei ⚡, sonst 💤
+T3–4: 🔋
+T4–7: ⚡
+T7–10: 💤
+T10–11: 🔋
+T11–1: 💤 + 🟢
+
+DRS stark zwischen T7–8 oder T11–1 – je nach Runde und Verkehr.
+`,
+
+    "Montreal": `
+🏁 Start: Innenbahn 💤, Außenbahn ⚡ (Überraschung bis T3 möglich)
+
+T1–4: ⚡
+T4–6: 💤
+T6–7: ⚡
+T7–10: 💤
+T10–11: ⚡
+T11–14: 💤 + 🟢
+T14–1: 🔋
+
+DRS + Antrieb gut timen, erste DRS-Zone ab Runde 2 vor T11 nutzen.
+`,
+
+    "Hungaroring": `
+🏁 Start: ⚡ bis T3
+
+T1: ⚡
+T1–2: 💤
+T2–3: ⚡
+T3–4: 🔋
+T4–5: 💤
+T5–7: ⚡
+T7–11: 💤
+T11–12: 🔋
+T12–14: ⚡
+Start/Ziel: 💤 + 🟢
+
+DRS ab Runde 3 gut zwischen T2–4 einplanen.
+`,
+
+    "Zandvoort": `
+🏁 Start: Innen ⚡, Außen 💤
+
+T1–2: 💤
+T2–3: ⚡
+T3–7: 🔋
+T7–10: ⚡ (sehr stark)
+T10–11: 🔋
+T11–13: 💤 (bei Chance: voll ⚡)
+T13–1: 💤 + 🟢
+
+Zwischen T8–10 immer gut boosten, dort holst du viel raus.
+`,
+
+    "Austin": `
+🏁 Start: ⚡, hoffen auf gute Linie in T1
+
+T1–10: eher 💤
+T10–11: ab Runde 2 🔋
+T11–12: 🟢 + 💤
+T12–15: ⚡
+T15–19: 💤
+T19–20: neutral/leicht ⚡
+T20–1: 🔋
+
+Runde 1: zwischen T10–11 ruhig einmal ⚡, ab Runde 2 eher 🔋.
+`,
+
+    "Shanghai": `
+🏁 Start: ⚡ bis ca. T6
+
+T1–4: ⚡
+T4–6: 🔋
+T6–8: 💤
+T8–10: ⚡
+T10–11: ab Runde 2 🔋 (Runde 1 eher ⚡)
+T11–13: ⚡
+T13–14: 💤 + 🟢 (Runde 1 auch 🔋 ok)
+T14–16: ⚡
+T16–1: 🔋
+
+Runde 1 aggressiv, danach lange Gerade eher zum 🔋 nutzen.
+`,
+
+    "Baku": `
+🏁 Start: bei gutem Start ⚡, sonst 💤
+
+T1–3: 💤
+T3–6: ⚡
+T6–12: 💤
+T12–14: ab Runde 2 🔋
+T14–16: ⚡
+T16–1: 💤 + 🟢
+
+Ab Runde 2 kann man auch T1 zum Überholen nutzen, wenn Platz ist.
+`,
+
+    "SaoPaulo": `
+🏁 Start: bei guter Position ⚡, sonst 💤
+
+T1–2: ⚡
+T2–4: 💤 + 🟢
+T4–6: 💤
+T6–10: ⚡ (Haupt-Push-Zone)
+T10–13: 💤
+T13–1: 🔋
+
+Boost ab Runde 2 intensiver nutzen, wenn das Feld auseinander ist.
+`,
+
+    "Las Vegas": `
+🏁 Start: ⚡
+
+T1–3: ⚡
+T3–5: 🔋 + ggf. 🟢
+T5–7: 💤
+T7–9: ⚡
+T9–12: 💤
+T12–13: ⚡
+T13–14: 🔋 + 🟢
+T14–16: ⚡
+T16–1: 💤 + 🟢
+
+Wichtig: ab Runde 2 DRS zwischen T3–5 nutzen und kurz vor Runde-Ende nochmal.
+`,
+
+    "Imola": `
+🏁 Start: groß ⚡, durch T2 nicht auffahren
+
+T1–2: 💤
+T2–6: ⚡
+T6–7: ab Runde 2 🔋
+T7–9: kurz ⚡, dann 🔋
+T9–13: 💤
+T13–15: ⚡
+T15–17: ab Runde 2 🔋
+T17–18: ⚡
+Start/Ziel: 💤 + 🟢
+
+Runde 1: deutlich aggressiver boosten, ab Runde 2 strukturiert fahren.
+`,
+
+    "Singapur": `
+🏁 Start: Innen 💤, Außen ⚡ (auf Innenlinie zielen)
+
+T1–3: ⚡
+T3–9: ab Runde 2 🔋 (Runde 1 ggf. leicht ⚡)
+T9–13: ⚡
+T13–14: 💤
+T14–17: 💤 + 🟢
+T17–18: ⚡
+T18–1: 🔋
+
+Boost zwischen T10–13 sehr effektiv – vermeide sinnlosen ⚡ zwischen T7–9.
+`,
+
+    "Mexico": `
+🏁 Start: ⚡ bis Ausgang T3
+
+T1–3: ⚡
+T3–4: 🔋
+T4–6: ⚡
+T6–12: ab Runde 2 💤/🔋
+T12–16: ⚡
+T16–1: 💤 + 🟢
+
+Zwischen T12–16 am meisten Pace holen – immer etwas Antrieb übrig lassen.
+`,
+
+    "Spa": `
+🏁 Start: innen ⚡ bis Ausgang T1, außen eher 💤
+
+T1–4: 💤
+T4–5: 🟢
+T5–9: ⚡ (Schlüsselpassage)
+T9–12: 💤
+T12–14: ⚡
+T14–18: 🔋
+T18–1: 💤
+
+DRS T4–7 ist fast Pflicht – kombiniert mit ⚡ kannst du mehrere Autos schnappen.
+`,
+
+    "AbuDhabi": `
+🏁 Start: ⚡ bis ca. T3
+
+T1–2: ⚡
+T2–4: 💤
+T4–5: ab Runde 2 🔋
+T5–6: 🟢 + 💤
+T6–7: ⚡
+T7–9: ab Runde 2 🔋
+T9–12: 💤
+T12–16: ⚡
+T16–1: ab Runde 2 🔋
+
+Zwischen T12–16 maximalen Boost-Einsatz, DRS je nach Verschiebung anpassen.
+`,
+
+    "Sakhir": `
+🏁 Start: ⚡ bis Ausgang T2
+
+T1–2: ⚡
+T2–4: 🔋
+T4–8: ⚡
+T8–10: ab Runde 2 🔋
+T10: ⚡
+T10–13: 💤
+T13: ⚡
+T13–14: ab Runde 2 🔋
+T14–1: 💤 + 🟢
+
+Besonders T5–8 mit ⚡ sehr stark – dort immer etwas Antrieb einplanen.
+`,
+
+    "Barcelona": `
+🏁 Start: 💤 (Start ist nicht alles)
+
+T1–2: ⚡
+T2–4: 💤
+T4–5: ⚡
+T5–9: 💤
+T9–10: ab Runde 2 🔋
+T10–12: ⚡
+T12–14: 💤
+T14–1: 💤 + 🟢
+
+Wenn DRS sich verschiebt, zwischen T9–10 nutzen und vor Start/Ziel etwas 🔋.
+`,
+
+    "Suzuka": `
+🏁 Start: ⚡ bis Ausgang T2
+
+T1–2: ⚡
+T2–9: 💤 (S-Kurven sauber fahren)
+T9–11: ⚡
+T11–14: 💤
+T14–16: 💤 + 🟢
+T16–18: ⚡
+T18–1: 🔋
+
+Zwischen T9–11 ist Boost der Schlüssel zum Überholen. DRS meist besser T14–16.
+`
 };
+
 
 
 /* ---------------------------------------
