@@ -1,28 +1,3 @@
-Top, dann machen wir’s jetzt „richtig richtig“ 😄
-Ich baue dir deine bestehende app.js so um, dass:
-
-DE/EN zuverlässig funktioniert
-
-Fahrer-Werte-Labels übersetzt werden
-
-Event-Labels übersetzt werden
-
-Setup-Labels übersetzt werden
-
-Track-Guide-Legende + Texte je nach Sprache wechseln
-
-Auto-Save, Dark-Mode, Tabs bleiben wie gehabt
-
-
-> 🧩 Wichtig: Ersetze deine aktuelle app.js komplett durch den Code unten.
-
-
-
-
----
-
-✅ Neue komplette app.js mit funktionierendem EN-Button
-
 /* ======================================================
    F1 Austrian EPIC – FULL APP LOGIC (DE/EN)
 ====================================================== */
@@ -663,35 +638,3 @@ window.addEventListener("DOMContentLoaded", () => {
     loadState();
     applyLanguage(currentLang);
 });
-
-
----
-
-🧪 Wie testest du jetzt?
-
-1. Neue app.js hochladen / committen
-
-
-2. Seite neu laden (Ctrl + F5)
-
-
-3. Oben rechts EN anklicken
-
-Nav unten: „Fahrer → Drivers“, „Karten → Maps“
-
-Fahrer-Boxen: z.B. „Überholen → Overtaking“
-
-Event-Labels: „Reifen A → Tyres A“, „Fahrer A → Driver A“
-
-
-
-4. Zurück auf DE – alles wieder auf Deutsch
-
-
-
-
----
-
-Wenn du willst, kann ich dir im nächsten Schritt:
-
-englische Track-Guides (Option B, komprimiert & clean) direkt in guideTexts/_EN einbauen und die Funktion getGuideText() so umbauen, dass sie wirklich zwischen de/en wechselt.
