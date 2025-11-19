@@ -1,74 +1,56 @@
-/* ----------------------------------------
-   GLOBAL APP STYLE + BACKGROUND WATERMARK
----------------------------------------- */
-body {
+/* GLOBAL RESET */
+* {
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
-    background: #f5f5f5;
-    color: #111;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-/* Austrian EPIC Watermark */
-body::before {
-    content: "";
+/* BACKGROUND LOGO */
+#app-bg {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80vw;
-    height: auto;
-    background-image: url('./AustrianEPIC.png');
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.13;
+    inset: 0;
+    background: url("media/AustrianEPIC.png") center/50% no-repeat;
+    opacity: 0.08;
     z-index: -1;
-    pointer-events: none;
 }
 
-/* ----------------------------------------
-   NAVIGATION
----------------------------------------- */
-nav {
+/* HEADER */
+header {
+    text-align: center;
+    padding: 15px 0;
+    background: #b80000;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* NAVIGATION */
+#top-nav {
     display: flex;
-    justify-content: space-around;
-    padding: 15px;
-    background: #e41d1d;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
 }
 
 .nav-btn {
-    padding: 10px 18px;
-    border-radius: 8px;
-    background: #fff3;
-    color: white;
-    font-weight: bold;
+    padding: 10px 14px;
+    background: #e0e0e0;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
-    transition: 0.25s;
-    border: 2px solid transparent;
+    font-weight: bold;
 }
 
-.nav-btn:hover {
-    background: #ffffff33;
-    border-color: #fff;
-}
-
-/* Active tab */
 .nav-btn.active {
-    background: #ffffffcc;
-    color: #e41d1d;
-    border-color: #e41d1d;
+    background: #b80000;
+    color: white;
 }
 
-/* ----------------------------------------
-   PAGE CONTAINERS
----------------------------------------- */
+/* PAGE */
 .page {
     display: none;
-    padding: 20px;
+    padding: 18px;
 }
 
 .page.active {
@@ -76,158 +58,156 @@ nav {
 }
 
 .page-title {
-    font-size: 2.2em;
-    font-weight: bold;
     text-align: center;
-    margin-bottom: 20px;
-    text-transform: uppercase;
+    font-size: 26px;
+    margin-bottom: 18px;
+    color: #333;
 }
 
-/* ----------------------------------------
-   DRIVER LIST
----------------------------------------- */
+/* ============================
+      DRIVER CARDS
+============================ */
+#drivers-list {
+    display: grid;
+    gap: 12px;
+}
+
 .driver-card {
-    background: white;
-    padding: 12px;
-    margin-bottom: 10px;
+    padding: 14px;
     border-radius: 10px;
-    box-shadow: 0 2px 6px #0002;
+    color: white;
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 
-/* Driver left section */
-.driver-info {
-    width: 60%;
-}
+/* TEAM COLORS */
+.team-sainz { background: #0044ff; }
+.team-leclerc, .team-hamilton { background: #d40000; }
+.team-alonso { background: #005f2f; }
+.team-russell { background: #7a7a7a; }
+.team-norris, .team-piastri { background: #ff7b00; }
+.team-verstappen { background: #002a6f; }
+.team-hulkenberg { background: #0c8a00; }
+.team-gasly { background: #ff4db8; }
 
-/* Driver right section */
-.driver-actions {
-    text-align: right;
-}
-
-/* Boost star */
+/* STAR BUTTON */
 .star-btn {
-    font-size: 26px;
+    font-size: 30px;
     cursor: pointer;
 }
 
-/* Show "+10%" next to star when active */
-.boost-active::after {
-    content: " +10%";
-    font-size: 16px;
-    font-weight: bold;
-    color: green;
+.boost-active {
+    color: yellow;
 }
 
-/* Team Colors */
-.team-sainz { background: #1b4ea3 !important; color: white; }
-.team-leclerc { background: #c30000 !important; color: white; }
-.team-alonso { background: #004225 !important; color: white; }
-.team-russell { background: #c0c0c0 !important; color: black; }
-.team-norris { background: #ff8c00 !important; color: black; }
-.team-piastri { background: #ff8c00 !important; color: black; }
-.team-hamilton { background: #c30000 !important; color: white; }
-.team-verstappen { background: #001b60 !important; color: white; }
-.team-hulkenberg { background: #008f39 !important; color: white; }
-.team-gasly { background: #ff007f !important; color: white; }
-
-/* Level box */
 .level-input {
-    width: 45px; 
-    padding: 4px;
+    width: 40px;
+    padding: 3px;
 }
 
-/* ----------------------------------------
-   EVENT PLANNER
----------------------------------------- */
+/* ============================
+      EVENT PLANNER
+============================ */
+
+#event-rows {
+    display: grid;
+    gap: 14px;
+}
+
 .event-row {
-    background: white;
-    padding: 15px;
-    margin-bottom: 12px;
+    padding: 12px;
     border-radius: 10px;
-    box-shadow: 0 2px 6px #0002;
+    background: #f4f4f4;
 }
 
 .event-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 120px 120px;
-    gap: 10px;
-    align-items: center;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
 }
 
-.event-col-title {
-    background: #d40000;
+.event-grid select,
+.event-grid input {
+    padding: 6px;
+}
+
+.export-btn {
+    display: block;
+    margin: 15px auto;
+    padding: 12px 22px;
+    background: #b80000;
     color: white;
-    padding: 5px;
-    text-align: center;
+    border: none;
     font-weight: bold;
-    border-radius: 5px;
-}
-
-.tyreA, .driverA { background: #fff7c2; }    /* Gelb */
-.tyreB, .driverB { background: #ffe0b3; }    /* Orange */
-
-.boost-input {
-    width: 80px;
-}
-
-/* Guide link */
-.guide-link {
-    background: #d40000;
-    color: white;
-    padding: 5px 8px;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
-    text-align: center;
 }
 
-/* ----------------------------------------
-   TRACK MAPS
----------------------------------------- */
-.track-grid {
+/* GUIDE BUTTON */
+.guide-link {
+    color: #b80000;
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+/* ============================
+      MAPS GRID
+============================ */
+
+#maps-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 12px;
 }
 
 .track-thumb {
-    background: white;
     padding: 10px;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px #0002;
+    text-align: center;
+    background: #ebebeb;
+    border-radius: 10px;
     cursor: pointer;
-    transition: 0.2s;
-}
-
-.track-thumb:hover {
-    transform: scale(1.05);
 }
 
 .track-thumb img {
     width: 100%;
+    border-radius: 8px;
 }
 
-/* MAP VIEW POPUP */
-.map-popup {
+/* ============================
+      MAP POPUP
+============================ */
+
+#map-popup {
     position: fixed;
     inset: 0;
-    background: #000c;
+    background: rgba(0,0,0,0.65);
     display: none;
     justify-content: center;
     align-items: center;
 }
 
-.map-popup-content {
+#map-popup-content {
     background: white;
-    padding: 20px;
-    border-radius: 12px;
-    max-width: 95%;
-    max-height: 90%;
-    overflow: auto;
+    padding: 18px;
+    width: 85%;
+    max-width: 600px;
+    border-radius: 14px;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
-.map-popup img {
+#map-popup-content img {
     width: 100%;
+    border-radius: 10px;
+}
+
+/* ============================
+      SETUP GRID
+============================ */
+
+#setup-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+    gap: 12px;
 }
