@@ -821,5 +821,17 @@ toggleDark.addEventListener("click", () => {
     localStorage.setItem("darkmode", enabled);
 });
 
+/* ---------------------------------------
+   INIT – Alles einmal beim Laden ausführen
+----------------------------------------- */
+
+window.addEventListener("DOMContentLoaded", () => {
+    // Reihenfolge ist wichtig:
+    renderDrivers();
+    renderTrackList();
+    renderEventPlanner();
+    renderSetups();
+    loadState();   // lädt gespeicherte Werte NACH dem Rendern
+});
 
 /* END OF FILE */
