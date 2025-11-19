@@ -346,16 +346,16 @@ header h1 {
 }
 
 /* -----------------------------------------
-   DARK MODE
+   DARK MODE (überarbeitet, bessere Lesbarkeit)
 ----------------------------------------- */
 
 body.dark {
-    background: #121212;
-    color: #e8e8e8;
+    background: #050505;
+    color: #f0f0f0;
 }
 
 body.dark header h1 {
-    color: #fff;
+    color: #ffffff;
 }
 
 body.dark .nav-btn {
@@ -364,34 +364,52 @@ body.dark .nav-btn {
 
 body.dark .nav-btn.active {
     background: #cc0000;
+    color: #fff;
 }
 
+/* Cards & Boxen heller abheben */
 body.dark .driver-card,
 body.dark .event-row,
 body.dark .track-entry,
 body.dark .popup-content,
 body.dark .setup-box {
-    background: #1e1e1e;
-    color: #eee;
-    box-shadow: none;
+    background: #1c1c1c;
+    color: #f5f5f5;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.6);
 }
 
+/* Driver-Stat-Boxen */
+body.dark .stat-box {
+    background: #2b2b2b;
+}
+
+/* Inputs */
 body.dark select,
 body.dark input {
-    background: #2a2a2a;
-    color: white;
+    background: #262626;
+    color: #f5f5f5;
     border: 1px solid #444;
 }
 
+/* Hintergrundlogo etwas dezenter */
 body.dark #background-logo {
-    opacity: 0.05;
+    opacity: 0.04;
 }
 
+/* Event A/B Blöcke leicht transparent, aber erkennbar */
 body.dark .a-block {
-    background: rgba(255, 220, 50, 0.18);
+    background: rgba(255, 243, 176, 0.12);
 }
 
 body.dark .b-block {
-    background: rgba(255, 150, 50, 0.18);
+    background: rgba(255, 213, 163, 0.12);
 }
 
+/* Boost-Stern im Dark Mode klar sichtbar */
+body.dark .boost-star {
+    color: #aaaaaa;
+}
+
+body.dark .boost-star.active {
+    color: gold;
+}
