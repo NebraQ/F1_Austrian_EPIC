@@ -1,0 +1,233 @@
+/* ----------------------------------------
+   GLOBAL APP STYLE + BACKGROUND WATERMARK
+---------------------------------------- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: #f5f5f5;
+    color: #111;
+}
+
+/* Austrian EPIC Watermark */
+body::before {
+    content: "";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: auto;
+    background-image: url('./AustrianEPIC.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.13;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ----------------------------------------
+   NAVIGATION
+---------------------------------------- */
+nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+    background: #e41d1d;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.nav-btn {
+    padding: 10px 18px;
+    border-radius: 8px;
+    background: #fff3;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.25s;
+    border: 2px solid transparent;
+}
+
+.nav-btn:hover {
+    background: #ffffff33;
+    border-color: #fff;
+}
+
+/* Active tab */
+.nav-btn.active {
+    background: #ffffffcc;
+    color: #e41d1d;
+    border-color: #e41d1d;
+}
+
+/* ----------------------------------------
+   PAGE CONTAINERS
+---------------------------------------- */
+.page {
+    display: none;
+    padding: 20px;
+}
+
+.page.active {
+    display: block;
+}
+
+.page-title {
+    font-size: 2.2em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+/* ----------------------------------------
+   DRIVER LIST
+---------------------------------------- */
+.driver-card {
+    background: white;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px #0002;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Driver left section */
+.driver-info {
+    width: 60%;
+}
+
+/* Driver right section */
+.driver-actions {
+    text-align: right;
+}
+
+/* Boost star */
+.star-btn {
+    font-size: 26px;
+    cursor: pointer;
+}
+
+/* Show "+10%" next to star when active */
+.boost-active::after {
+    content: " +10%";
+    font-size: 16px;
+    font-weight: bold;
+    color: green;
+}
+
+/* Team Colors */
+.team-sainz { background: #1b4ea3 !important; color: white; }
+.team-leclerc { background: #c30000 !important; color: white; }
+.team-alonso { background: #004225 !important; color: white; }
+.team-russell { background: #c0c0c0 !important; color: black; }
+.team-norris { background: #ff8c00 !important; color: black; }
+.team-piastri { background: #ff8c00 !important; color: black; }
+.team-hamilton { background: #c30000 !important; color: white; }
+.team-verstappen { background: #001b60 !important; color: white; }
+.team-hulkenberg { background: #008f39 !important; color: white; }
+.team-gasly { background: #ff007f !important; color: white; }
+
+/* Level box */
+.level-input {
+    width: 45px; 
+    padding: 4px;
+}
+
+/* ----------------------------------------
+   EVENT PLANNER
+---------------------------------------- */
+.event-row {
+    background: white;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px #0002;
+}
+
+.event-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 120px 120px;
+    gap: 10px;
+    align-items: center;
+}
+
+.event-col-title {
+    background: #d40000;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.tyreA, .driverA { background: #fff7c2; }    /* Gelb */
+.tyreB, .driverB { background: #ffe0b3; }    /* Orange */
+
+.boost-input {
+    width: 80px;
+}
+
+/* Guide link */
+.guide-link {
+    background: #d40000;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* ----------------------------------------
+   TRACK MAPS
+---------------------------------------- */
+.track-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+    gap: 12px;
+}
+
+.track-thumb {
+    background: white;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px #0002;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.track-thumb:hover {
+    transform: scale(1.05);
+}
+
+.track-thumb img {
+    width: 100%;
+}
+
+/* MAP VIEW POPUP */
+.map-popup {
+    position: fixed;
+    inset: 0;
+    background: #000c;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.map-popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 95%;
+    max-height: 90%;
+    overflow: auto;
+}
+
+.map-popup img {
+    width: 100%;
+}
