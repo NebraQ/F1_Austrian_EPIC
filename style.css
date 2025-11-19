@@ -303,10 +303,21 @@ header h1 {
 
 /* Text im Track-Guide schön formatieren */
 #popup-track-guide {
-    white-space: pre-line;
-    line-height: 1.4;
     font-size: 15px;
+    line-height: 1.4;
 }
+
+.guide-legend {
+    font-size: 13px;
+    margin-bottom: 8px;
+    opacity: 0.85;
+}
+
+.guide-body {
+    white-space: pre-line; /* \n im Text = Zeilenumbruch */
+}
+
+
 
 /* ------------------------------
    SETUP BOXES
