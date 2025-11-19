@@ -525,3 +525,118 @@ body.dark .boost-star.active {
     font-weight: 600;
     opacity: 0.9;
 }
+
+.event-card {
+    background: var(--card-bg, #fff);
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.event-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.event-race-label {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.event-laps {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.rain-btn {
+    border: none;
+    border-radius: 999px;
+    padding: 4px 8px;
+    font-size: 16px;
+    cursor: pointer;
+    background: #555;
+    color: #ddd;
+}
+
+.rain-btn.rain-off {
+    background: #555;
+    color: #aaa;
+}
+
+.rain-btn.rain-on {
+    background: #2196f3;
+    color: #fff;
+}
+
+.event-track-row {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.event-attrs {
+    font-size: 12px;
+    opacity: 0.9;
+    font-weight: 600;
+}
+
+.event-drivers-row {
+    display: flex;
+    gap: 10px;
+}
+
+.event-driver-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.event-subtitle {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.driver-a .event-subtitle,
+.driver-a select {
+    /* z.B. gelblich */
+}
+
+.driver-b .event-subtitle,
+.driver-b select {
+    /* z.B. orange – kannst du nach Geschmack färben */
+}
+
+.event-boost-row {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-top: 4px;
+}
+
+.event-boost-row span {
+    font-size: 12px;
+}
+
+.event-boost-input {
+    width: 100%;
+    resize: vertical;
+    font-size: 12px;
+}
+
+.event-footer {
+    text-align: right;
+}
+
+.guide-link {
+    font-size: 12px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
