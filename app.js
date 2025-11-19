@@ -1023,10 +1023,20 @@ function applyLanguage(lang) {
     currentLang = lang;
     localStorage.setItem("ae_lang", lang);
 
-    // Language buttons oben markieren
-    document.querySelectorAll("#lang-switcher .lang-btn").forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.lang === lang);
-    });
+    document.querySelectorAll(".lang-btn").forEach(btn =>
+        btn.classList.remove("active")
+    );
+    document.querySelector(`.lang-btn[data-lang="${lang}"]`)?.classList.add("active");
+
+    // Tabs neu rendern
+    renderDrivers();
+    renderEventPlanner();
+    renderTrackList();
+    renderSetups();
+
+    // Attribute & Laps aktualisieren (RICHTIG)
+    updateAllEventAttrsAndLaps();
+}
 
     // Nav-Tabs unten übersetzen (nur Buttons mit data-tab!)
     document.querySelectorAll(".nav-btn").forEach(btn => {
