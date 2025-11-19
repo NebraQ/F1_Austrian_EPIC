@@ -470,7 +470,7 @@ function updateAllEventAttrsAndLaps() {
 
 
     // ...
-    eventBox.appendChild(row);
+    eventBox.appendChild(row);{
 }
 updateAllEventAttrs();
 
