@@ -46,10 +46,10 @@ header h1 {
     margin-bottom: 15px;
 }
 
-/* Tabs hidden by default */
 .tab {
     display: none;
     padding: 20px;
+    padding-bottom: 90px; /* Platz für die untere Navigation */
 }
 
 .tab.active {
