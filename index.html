@@ -3,97 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Austrian EPIC – F1 Clash Tool</title>
+    <title>F1 Austrian EPIC</title>
 
-    <!-- CSS -->
+    <!-- STYLE -->
     <link rel="stylesheet" href="style.css">
 
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" href="media/AustrianEPIC.png">
 </head>
 
 <body>
 
-    <!-- NAVIGATION -->
-    <nav>
-        <div class="nav-btn active" data-tab="drivers">Fahrer</div>
-        <div class="nav-btn" data-tab="event">Event</div>
-        <div class="nav-btn" data-tab="maps">Maps</div>
-        <div class="nav-btn" data-tab="setup">Setup</div>
-    </nav>
+<div id="app-bg"></div>
 
-    <!-- ============================
-             TAB: DRIVERS
-    ============================= -->
-    <div id="drivers" class="page active">
-        <div class="page-title">Fahrer</div>
-        <div id="drivers-list"></div>
-    </div>
+<header>
+    <h1>F1 Austrian EPIC</h1>
+</header>
 
-    <!-- ============================
-             TAB: EVENT PLANNER
-    ============================= -->
-    <div id="event" class="page">
-        <div class="page-title">Event Planner</div>
+<nav id="top-nav">
+    <button class="nav-btn active" data-tab="drivers">Fahrer</button>
+    <button class="nav-btn" data-tab="event">Event</button>
+    <button class="nav-btn" data-tab="maps">Maps</button>
+    <button class="nav-btn" data-tab="setup">Setup</button>
+</nav>
 
-        <!-- EVENT → Header row -->
-        <div class="event-grid" style="margin-bottom: 10px;">
-            <div class="event-col-title">Strecke</div>
-            <div class="event-col-title">Werte</div>
-            <div class="event-col-title">Driver A</div>
-            <div class="event-col-title">Tyres A</div>
-            <div class="event-col-title">Driver B</div>
-            <div class="event-col-title">Tyres B</div>
-            <div class="event-col-title">Boost</div>
-            <div class="event-col-title">Guide</div>
-        </div>
+<!-- ===================================
+             DRIVERS PAGE
+=================================== -->
+<section id="drivers" class="page active">
+    <h2 class="page-title">Drivers</h2>
+    <div id="drivers-list"></div>
+</section>
 
-        <div id="event-rows"></div>
+<!-- ===================================
+             EVENT PAGE
+=================================== -->
+<section id="event" class="page">
+    <h2 class="page-title">Event Planner</h2>
 
-        <!-- PDF EXPORT BUTTON -->
-        <div style="text-align:center; margin-top:20px;">
-            <button id="exportPDF" style="
-                padding:12px 22px;
-                font-size:16px;
-                background:#e41d1d;
-                color:white;
-                border:none;
-                border-radius:8px;
-                cursor:pointer;">
-                Export als PDF
-            </button>
-        </div>
-    </div>
+    <div id="event-rows"></div>
 
-    <!-- ============================
-             TAB: MAPS
-    ============================= -->
-    <div id="maps" class="page">
-        <div class="page-title">Strecken Maps</div>
+    <button id="exportPDF" class="export-btn">PDF Export</button>
+</section>
 
-        <div id="maps-grid" class="track-grid"></div>
+<!-- ===================================
+             MAPS PAGE
+=================================== -->
+<section id="maps" class="page">
+    <h2 class="page-title">Track Maps</h2>
+    <div id="maps-grid"></div>
+</section>
 
-        <!-- POPUP MODAL -->
-        <div id="map-popup" class="map-popup">
-            <div class="map-popup-content" id="map-popup-content"></div>
-        </div>
-    </div>
+<!-- MAP POPUP -->
+<div id="map-popup">
+    <div id="map-popup-content"></div>
+</div>
 
-    <!-- ============================
-             TAB: SETUP OVERVIEW
-    ============================= -->
-    <div id="setup" class="page">
-        <div class="page-title">Setup</div>
+<!-- ===================================
+             SETUP PAGE
+=================================== -->
+<section id="setup" class="page">
+    <h2 class="page-title">Setup</h2>
+    <div id="setup-grid"></div>
+</section>
 
-        <div id="setup-grid" style="
-            display:grid;
-            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-            gap:15px;">
-        </div>
-    </div>
-
-    <!-- JS -->
-    <script src="app.js"></script>
+<!-- SCRIPT -->
+<script src="app.js"></script>
 
 </body>
 </html>
