@@ -3,72 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F1 Austrian EPIC</title>
+    <title>Austrian EPIC – F1 Clash Planner</title>
 
-    <!-- STYLE -->
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 
-    <!-- Favicon -->
-    <link rel="icon" href="media/AustrianEPIC.png">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Oswald:wght@400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<div id="app-bg"></div>
+    <!-- Hintergrundlogo -->
+    <div id="background-logo"></div>
 
-<header>
-    <h1>F1 Austrian EPIC</h1>
-</header>
+    <!-- HEADER -->
+    <header>
+        <h1>Austrian EPIC – F1 Clash Planner</h1>
+    </header>
 
-<nav id="top-nav">
-    <button class="nav-btn active" data-tab="drivers">Fahrer</button>
-    <button class="nav-btn" data-tab="event">Event</button>
-    <button class="nav-btn" data-tab="maps">Maps</button>
-    <button class="nav-btn" data-tab="setup">Setup</button>
-</nav>
+    <!-- MAIN CONTENT -->
+    <main>
 
-<!-- ===================================
-             DRIVERS PAGE
-=================================== -->
-<section id="drivers" class="page active">
-    <h2 class="page-title">Drivers</h2>
-    <div id="drivers-list"></div>
-</section>
+        <!-- DRIVERS TAB -->
+        <section id="drivers" class="tab active">
+            <h2 class="tab-title">Drivers</h2>
+            <div id="driver-list"></div>
+        </section>
 
-<!-- ===================================
-             EVENT PAGE
-=================================== -->
-<section id="event" class="page">
-    <h2 class="page-title">Event Planner</h2>
+        <!-- EVENT PLANNER -->
+        <section id="event" class="tab">
+            <h2 class="tab-title">Event Planner</h2>
 
-    <div id="event-rows"></div>
+            <div id="event-container">
+                <!-- wird per JS generiert -->
+            </div>
 
-    <button id="exportPDF" class="export-btn">PDF Export</button>
-</section>
+            <button id="exportPDF" class="export-btn">Event als PDF exportieren</button>
+        </section>
 
-<!-- ===================================
-             MAPS PAGE
-=================================== -->
-<section id="maps" class="page">
-    <h2 class="page-title">Track Maps</h2>
-    <div id="maps-grid"></div>
-</section>
+        <!-- MAPS -->
+        <section id="maps" class="tab">
+            <h2 class="tab-title">Track Maps</h2>
 
-<!-- MAP POPUP -->
-<div id="map-popup">
-    <div id="map-popup-content"></div>
-</div>
+            <div id="track-list"></div>
 
-<!-- ===================================
-             SETUP PAGE
-=================================== -->
-<section id="setup" class="page">
-    <h2 class="page-title">Setup</h2>
-    <div id="setup-grid"></div>
-</section>
+            <!-- POPUP -->
+            <div id="track-popup" class="popup hidden">
+                <div class="popup-content">
+                    <span id="closePopup" class="close-btn">✖</span>
+                    <h3 id="popup-track-title"></h3>
+                    <img id="popup-track-img" src="" alt="Track Map">
+                    <p id="popup-track-guide"></p>
+                </div>
+            </div>
+        </section>
 
-<!-- SCRIPT -->
-<script src="app.js"></script>
+        <!-- SETUP -->
+        <section id="setup" class="tab">
+            <h2 class="tab-title">Setups</h2>
+            <div id="setup-container">
+                <!-- 8 Setup-Boxen werden per JS erzeugt -->
+            </div>
+        </section>
 
+    </main>
+
+    <!-- NAVIGATION (fixiert unten) -->
+    <nav id="bottom-nav">
+        <button data-tab="drivers" class="nav-btn active">Fahrer</button>
+        <button data-tab="event" class="nav-btn">Event</button>
+        <button data-tab="maps" class="nav-btn">Maps</button>
+        <button data-tab="setup" class="nav-btn">Setup</button>
+    </nav>
+
+    <!-- JS -->
+    <script src="app.js"></script>
 </body>
 </html>
