@@ -4,6 +4,35 @@
 /* ---------------------------------------
    TRANSLATIONS
 ----------------------------------------- */
+function translateAttrLabel(attr) {
+    const map = {
+        de: {
+            "Rennstart": "Rennstart",
+            "Tempo": "Tempo",
+            "Verteidigen": "Verteidigen",
+            "Überholen": "Überholen",
+            "Reifenmanagement": "Reifenman.",
+            "Kurvenverhalten": "Kurvenverhalten",
+            "Antrieb": "Antrieb"
+        },
+        en: {
+            "Rennstart": "Race Start",
+            "Tempo": "Pace",
+            "Verteidigen": "Defending",
+            "Überholen": "Overtaking",
+            "Reifenmanagement": "Tyre Mgmt",
+            "Kurvenverhalten": "Cornering",
+            "Antrieb": "Engine Power"
+        }
+    };
+    return map[currentLang]?.[attr] || attr;
+}
+
+function formatTrackAttrs(track) {
+    const a1 = translateAttrLabel(track.main1);
+    const a2 = translateAttrLabel(track.main2);
+    return `${a1} | ${a2}`;
+}
 
 const translations = {
     de: {
@@ -335,6 +364,7 @@ function renderEventPlanner() {
                 <option value="">${t.selectTrack}</option>
                 ${tracks.map(tr => `<option>${tr.name}</option>`).join("")}
             </select>
+       <div class="event-attrs" id="ev-attrs-${i}"></div>
 
             <div class="event-two-col">
 
@@ -408,6 +438,25 @@ function renderEventPlanner() {
         eventBox.appendChild(row);
     }
 }
+function updateEventAttrsRow(i) {
+    const sel = document.getElementById(`ev-track-${i}`);
+    const out = document.getElementById(`ev-attrs-${i}`);
+    if (!sel || !out) return;
+
+    const track = tracks.find(t => t.name === sel.value);
+    out.textContent = track ? formatTrackAttrs(track) : "";
+}
+
+function updateAllEventAttrs() {
+    for (let i = 1; i <= 8; i++) {
+        updateEventAttrsRow(i);
+    }
+}
+    // ...
+    eventBox.appendChild(row);
+}
+updateAllEventAttrs();
+
 
 function openTrackGuideFromPlanner(i) {
     let name = document.getElementById(`ev-track-${i}`).value;
@@ -981,6 +1030,8 @@ function applyLanguage(lang) {
     renderTrackList();
     renderSetups();
     loadState(); // Werte wiederherstellen
+       // ... nach dem Wiederherstellen von Event & Setups
+    updateAllEventAttrs();
 }
 
 document.getElementById("lang-switcher").addEventListener("click", (e) => {
@@ -989,6 +1040,21 @@ document.getElementById("lang-switcher").addEventListener("click", (e) => {
     applyLanguage(lang);
 });
 
+/* ---------------------------------------
+   EVENT CHANGE LISTENER (TRACK ATTRIBUTES)
+----------------------------------------- */
+
+const eventContainer = document.getElementById("event-container");
+
+if (eventContainer) {
+    eventContainer.addEventListener("change", (e) => {
+        if (e.target && e.target.id && e.target.id.startsWith("ev-track-")) {
+            const idx = parseInt(e.target.id.replace("ev-track-", ""), 10);
+            updateEventAttrsRow(idx);
+        }
+        saveState();
+    });
+}
 
 /* ---------------------------------------
    INIT – Alles einmal beim Laden ausführen
