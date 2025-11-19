@@ -299,6 +299,13 @@ header h1 {
     margin: 15px 0;
 }
 
+/* Text im Track-Guide schön formatieren */
+#popup-track-guide {
+    white-space: pre-line;
+    line-height: 1.4;
+    font-size: 15px;
+}
+
 /* ------------------------------
    SETUP BOXES
 ------------------------------ */
