@@ -245,7 +245,7 @@ function getGuideText(trackName) {
 
 function openTrackPopup(track) {
     const popup = document.getElementById("track-popup");
-    popup.classList.remove("hidden");
+    popup.classList.remove("hidden");  // -> :not(.hidden) → Animation
 
     document.getElementById("popup-track-title").innerText = track.name;
     document.getElementById("popup-track-img").src = track.img;
@@ -260,9 +260,13 @@ function openTrackPopup(track) {
         </div>
         <div class="guide-body"></div>
     `;
-
     guideEl.querySelector(".guide-body").textContent = text;
 }
+
+document.getElementById("closePopup").onclick = () => {
+    document.getElementById("track-popup").classList.add("hidden");
+};
+
 
 document.getElementById("closePopup").onclick = () => {
     document.getElementById("track-popup").classList.add("hidden");
