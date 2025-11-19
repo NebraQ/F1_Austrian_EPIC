@@ -1,213 +1,339 @@
-/* GLOBAL RESET */
-* {
+/* ------------------------------
+   GLOBAL STYLES
+------------------------------ */
+
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
+    background: #f5f5f5;
+    color: #111;
+    overflow-x: hidden;
 }
 
-/* BACKGROUND LOGO */
-#app-bg {
+/* Hintergrundlogo */
+#background-logo {
     position: fixed;
-    inset: 0;
-    background: url("media/AustrianEPIC.png") center/50% no-repeat;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('AustrianEPIC.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     opacity: 0.08;
     z-index: -1;
 }
 
-/* HEADER */
+/* Headline */
 header {
     text-align: center;
-    padding: 15px 0;
-    background: #b80000;
-    color: white;
-    font-size: 22px;
-    font-weight: bold;
+    padding: 20px 10px;
 }
 
-/* NAVIGATION */
-#top-nav {
+header h1 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 26px;
+}
+
+/* Titles inside tabs */
+.tab-title {
+    font-family: 'Oswald';
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Tabs hidden by default */
+.tab {
+    display: none;
+    padding: 20px;
+}
+
+.tab.active {
+    display: block;
+}
+
+
+/* ------------------------------
+   NAVIGATION BOTTOM
+------------------------------ */
+
+#bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 65px;
+    background: #111;
     display: flex;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
 }
 
 .nav-btn {
-    padding: 10px 14px;
-    background: #e0e0e0;
+    background: none;
     border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
+    color: #ddd;
+    font-size: 16px;
+    padding: 10px;
+    width: 25%;
+    height: 100%;
+    font-weight: 500;
 }
 
 .nav-btn.active {
-    background: #b80000;
+    background: #e00000;
     color: white;
+    font-weight: 700;
 }
 
-/* PAGE */
-.page {
-    display: none;
-    padding: 18px;
-}
 
-.page.active {
-    display: block;
-}
+/* ------------------------------
+   DRIVERS
+------------------------------ */
 
-.page-title {
-    text-align: center;
-    font-size: 26px;
-    margin-bottom: 18px;
-    color: #333;
-}
-
-/* ============================
-      DRIVER CARDS
-============================ */
-#drivers-list {
-    display: grid;
-    gap: 12px;
+#driver-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .driver-card {
-    padding: 14px;
-    border-radius: 10px;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-}
-
-/* TEAM COLORS */
-.team-sainz { background: #0044ff; }
-.team-leclerc, .team-hamilton { background: #d40000; }
-.team-alonso { background: #005f2f; }
-.team-russell { background: #7a7a7a; }
-.team-norris, .team-piastri { background: #ff7b00; }
-.team-verstappen { background: #002a6f; }
-.team-hulkenberg { background: #0c8a00; }
-.team-gasly { background: #ff4db8; }
-
-/* STAR BUTTON */
-.star-btn {
-    font-size: 30px;
-    cursor: pointer;
-}
-
-.boost-active {
-    color: yellow;
-}
-
-.level-input {
-    width: 40px;
-    padding: 3px;
-}
-
-/* ============================
-      EVENT PLANNER
-============================ */
-
-#event-rows {
-    display: grid;
-    gap: 14px;
-}
-
-.event-row {
+    background: white;
     padding: 12px;
     border-radius: 10px;
-    background: #f4f4f4;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.15);
+    border-left: 10px solid transparent;
 }
 
-.event-grid {
+/* Team Farben */
+.team-red { border-color: #c80000 !important; }
+.team-blue { border-color: #0022aa !important; }
+.team-orange { border-color: #ff7b00 !important; }
+.team-green { border-color: #0f9d00 !important; }
+.team-pink { border-color: #ff54b8 !important; }
+.team-silver { border-color: #bbbbbb !important; }
+
+.driver-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.driver-name {
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.driver-level-input {
+    width: 45px;
+    height: 28px;
+    padding: 3px;
+    font-size: 14px;
+}
+
+.boost-star {
+    font-size: 24px;
+    cursor: pointer;
+    color: #777;
+}
+
+.boost-star.active {
+    color: gold;
+    font-weight: bold;
+}
+
+.boost-text {
+    color: green;
+    font-size: 14px;
+    padding-left: 5px;
+}
+
+.driver-stats {
+    margin-top: 10px;
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
 }
 
-.event-grid select,
-.event-grid input {
+.stat-box {
     padding: 6px;
+    background: #eee;
+    border-radius: 6px;
+    font-size: 14px;
+    text-align: center;
 }
 
-.export-btn {
-    display: block;
-    margin: 15px auto;
-    padding: 12px 22px;
-    background: #b80000;
-    color: white;
-    border: none;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-}
 
-/* GUIDE BUTTON */
-.guide-link {
-    color: #b80000;
-    cursor: pointer;
-    text-decoration: underline;
-    font-weight: bold;
-}
+/* ------------------------------
+   EVENT PLANNER
+------------------------------ */
 
-/* ============================
-      MAPS GRID
-============================ */
-
-#maps-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+#event-container {
+    display: flex;
+    flex-direction: column;
     gap: 12px;
 }
 
-.track-thumb {
-    padding: 10px;
-    text-align: center;
-    background: #ebebeb;
+.event-row {
+    background: white;
+    padding: 12px;
     border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.12);
+}
+
+.event-header {
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+/* Inputs */
+.event-input {
+    width: 130px;
+    height: 22px;
+    padding: 3px;
+    font-size: 14px;
+}
+
+/* Driver A + Tyres A = gelb block */
+.a-block {
+    background: #fff3b0;
+    padding: 5px;
+    border-radius: 6px;
+}
+
+/* Driver B + Tyres B = orange block */
+.b-block {
+    background: #ffd5a3;
+    padding: 5px;
+    border-radius: 6px;
+}
+
+.event-two-col {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+}
+
+.guide-link {
+    margin-top: 6px;
+    display: inline-block;
+    color: #0051c9;
+    text-decoration: underline;
+    font-size: 15px;
+}
+
+/* Export Button */
+.export-btn {
+    margin-top: 25px;
+    background: #111;
+    color: white;
+    padding: 12px;
+    border: none;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 17px;
     cursor: pointer;
 }
 
-.track-thumb img {
-    width: 100%;
-    border-radius: 8px;
+.export-btn:hover {
+    background: #222;
 }
 
-/* ============================
-      MAP POPUP
-============================ */
 
-#map-popup {
+/* ------------------------------
+   MAP POPUP
+------------------------------ */
+
+#track-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.track-entry {
+    background: white;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.15);
+}
+
+.popup {
     position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.65);
-    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#map-popup-content {
-    background: white;
-    padding: 18px;
-    width: 85%;
-    max-width: 600px;
-    border-radius: 14px;
-    max-height: 90vh;
-    overflow-y: auto;
+.popup.hidden {
+    display: none;
 }
 
-#map-popup-content img {
-    width: 100%;
+.popup-content {
+    background: white;
+    padding: 20px;
+    width: 90%;
+    max-height: 90%;
+    overflow-y: auto;
     border-radius: 10px;
 }
 
-/* ============================
-      SETUP GRID
-============================ */
+.close-btn {
+    float: right;
+    font-size: 22px;
+    cursor: pointer;
+}
 
-#setup-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
-    gap: 12px;
+.popup img {
+    width: 100%;
+    border-radius: 10px;
+    margin: 15px 0;
+}
+
+/* ------------------------------
+   SETUP BOXES
+------------------------------ */
+
+#setup-container {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.setup-box {
+    background: white;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.15);
+}
+
+.setup-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.setup-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 6px 0;
+}
+
+.setup-label {
+    font-size: 14px;
+}
+
+.setup-select {
+    width: 160px;
+    height: 24px;
+    font-size: 14px;
 }
