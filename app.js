@@ -9,7 +9,7 @@ const translations = {
     de: {
         drivers: "Fahrer",
         event: "Event",
-        maps: "Karten",
+        maps: "Strecken",
         setup: "Setup",
 
         // Labels / Titel
