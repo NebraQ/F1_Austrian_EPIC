@@ -1,527 +1,113 @@
-/* ------------------------------
-   GLOBAL STYLES
------------------------------- */
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto', sans-serif;
-    background: #f5f5f5;
-    color: #111;
-    overflow-x: hidden;
-}
-
-/* Hintergrundlogo */
-#background-logo {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-image: url('AustrianEPIC.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    opacity: 0.08;
-    z-index: -1;
-}
-
-/* Headline */
-header {
-    text-align: center;
-    padding: 20px 10px;
-}
-
-header h1 {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 500;
-    font-size: 26px;
-}
-
-/* Titles inside tabs */
-.tab-title {
-    font-family: 'Oswald';
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 15px;
-}
-
-.tab {
-    display: none;
-    padding: 20px;
-    padding-bottom: 90px; /* Platz für die untere Navigation */
-}
-
-.tab.active {
-    display: block;
-}
-
-
-/* ------------------------------
-   NAVIGATION BOTTOM
------------------------------- */
-
-#bottom-nav {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 65px;
-    background: #111;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    z-index: 1000;
-}
-
-.nav-btn {
-    background: none;
-    border: none;
-    color: #ddd;
-    font-size: 16px;
-    padding: 10px;
-    width: 25%;
-    height: 100%;
-    font-weight: 500;
-}
-
-.nav-btn.active {
-    background: #e00000;
-    color: white;
-    font-weight: 700;
-}
-
-
-/* ------------------------------
-   DRIVERS
------------------------------- */
-
-#driver-list {
+.event-card {
+    background: var(--card-bg, #fff);
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
-    gap: 15px;
-}
-
-.driver-card {
-    background: white;
-    padding: 12px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0,0,0,0.15);
-    border-left: 10px solid transparent;
-}
-
-/* Team Farben */
-.team-red { border-color: #c80000 !important; }
-.team-blue { border-color: #0022aa !important; }
-.team-orange { border-color: #ff7b00 !important; }
-.team-green { border-color: #0f9d00 !important; }
-.team-pink { border-color: #ff54b8 !important; }
-.team-silver { border-color: #bbbbbb !important; }
-
-.driver-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.driver-name {
-    font-size: 19px;
-    font-weight: 600;
-}
-
-.driver-level-input {
-    width: 45px;
-    height: 28px;
-    padding: 3px;
-    font-size: 14px;
-}
-
-.boost-star {
-    font-size: 12px;
-    cursor: pointer;
-    color: #777777;
-}
-
-.boost-star.active {
-    font-size: 24px;
-    color: gold;
-    font-weight: bold;
-}
-
-.boost-text {
-    color: green;
-    font-size: 14px;
-    padding-left: 5px;
-}
-
-.driver-stats {
-    margin-top: 10px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
     gap: 6px;
 }
 
-.stat-box {
-    padding: 6px;
-    background: #eee;
-    border-radius: 6px;
-    font-size: 14px;
-    text-align: center;
-}
-
-
-/* ------------------------------
-   EVENT PLANNER
------------------------------- */
-
-#event-container {
+.event-card-header {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.event-row {
-    background: white;
-    padding: 12px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0,0,0,0.12);
-}
-
-.event-header {
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-/* Inputs */
-.event-input {
-    width: 130px;
-    height: 22px;
-    padding: 3px;
-    font-size: 14px;
-}
-
-/* Driver A + Tyres A = gelb block */
-.a-block {
-    background: #fff3b0;
-    padding: 5px;
-    border-radius: 6px;
-}
-
-/* Driver B + Tyres B = orange block */
-.b-block {
-    background: #ffd5a3;
-    padding: 5px;
-    border-radius: 6px;
-}
-
-.event-two-col {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 6px;
-}
-
-.guide-link {
-    margin-top: 6px;
-    display: inline-block;
-    color: #0051c9;
-    text-decoration: underline;
-    font-size: 15px;
-}
-
-/* Export Button */
-.export-btn {
-    margin-top: 25px;
-    background: #111;
-    color: white;
-    padding: 12px;
-    border: none;
-    width: 100%;
-    border-radius: 8px;
-    font-size: 17px;
-    cursor: pointer;
-}
-
-.export-btn:hover {
-    background: #222;
-}
-
-
-/* ------------------------------
-   MAP POPUP
------------------------------- */
-
-#track-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding-bottom: 20px; /* kleiner Zusatzabstand */
-}
-
-
-.track-entry {
-    background: white;
-    padding: 12px;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 0px 2px 4px rgba(0,0,0,0.15);
-}
-
-.popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.7);
-    display: flex;
-    justify-content: center;
     align-items: center;
-}
-
-.popup.hidden {
-    display: none;
-}
-
-.popup-content {
-    background: white;
-    padding: 20px;
-    width: 90%;
-    max-height: 90%;
-    overflow-y: auto;
-    border-radius: 10px;
-}
-
-.close-btn {
-    float: right;
-    font-size: 22px;
-    cursor: pointer;
-}
-
-.popup img {
-    width: 100%;
-    border-radius: 10px;
-    margin: 15px 0;
-}
-
-/* Text im Track-Guide schön formatieren */
-#popup-track-guide {
-    font-size: 15px;
-    line-height: 1.4;
-}
-
-.guide-legend {
-    font-size: 13px;
-    margin-bottom: 8px;
-    opacity: 0.85;
-}
-
-.guide-body {
-    white-space: pre-line; /* \n im Text = Zeilenumbruch */
-}
-
-
-
-/* ------------------------------
-   SETUP BOXES
------------------------------- */
-
-#setup-container {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
-
-.setup-box {
-    background: white;
-    padding: 12px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0,0,0,0.15);
-}
-
-.setup-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
-.setup-row {
-    display: flex;
     justify-content: space-between;
-    margin: 6px 0;
+    gap: 8px;
 }
 
-.setup-label {
+.event-race-label {
+    font-weight: 700;
     font-size: 14px;
 }
 
-.setup-select {
-    width: 160px;
-    height: 24px;
-    font-size: 14px;
+.event-laps {
+    font-size: 12px;
+    opacity: 0.8;
 }
 
-/* -----------------------------------------
-   DARK MODE (überarbeitet, bessere Lesbarkeit)
------------------------------------------ */
-
-body.dark {
-    background: #050505;
-    color: #f0f0f0;
+.rain-btn {
+    border: none;
+    border-radius: 999px;
+    padding: 4px 8px;
+    font-size: 16px;
+    cursor: pointer;
+    background: #555;
+    color: #ddd;
 }
 
-body.dark header h1 {
-    color: #ffffff;
+.rain-btn.rain-off {
+    background: #555;
+    color: #aaa;
 }
 
-body.dark .nav-btn {
-    color: #ccc;
-}
-
-body.dark .nav-btn.active {
-    background: #cc0000;
+.rain-btn.rain-on {
+    background: #2196f3;
     color: #fff;
 }
 
-/* Cards & Boxen heller abheben */
-body.dark .driver-card,
-body.dark .event-row,
-body.dark .track-entry,
-body.dark .popup-content,
-body.dark .setup-box {
-    background: #1c1c1c;
-    color: #f5f5f5;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.6);
-}
-
-/* Driver-Stat-Boxen */
-body.dark .stat-box {
-    background: #2b2b2b;
-}
-
-/* Inputs */
-body.dark select,
-body.dark input {
-    background: #262626;
-    color: #f5f5f5;
-    border: 1px solid #444;
-}
-
-/* Hintergrundlogo etwas dezenter */
-body.dark #background-logo {
-    opacity: 0.04;
-}
-
-/* Event A/B Blöcke leicht transparent, aber erkennbar */
-body.dark .a-block {
-    background: rgba(255, 243, 176, 0.12);
-}
-
-body.dark .b-block {
-    background: rgba(255, 213, 163, 0.12);
-}
-
-/* Boost-Stern im Dark Mode klar sichtbar */
-body.dark .boost-star {
-    color: #aaaaaa;
-}
-
-body.dark .boost-star.active {
-    color: gold;
-}
-
-#lang-switcher {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 15px;
-    font-weight: 600;
-}
-
-.lang-btn {
-    margin-left: 12px;
-    cursor: pointer;
-    opacity: 0.6;
-}
-
-.lang-btn.active {
-    opacity: 1;
-    text-decoration: underline;
-}
-
-/* GLOBAL POPUP OVERLAY */
-#track-popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: none; /* Standard: unsichtbar */
-    justify-content: center;
-    align-items: center;
-    background: rgba(0,0,0,0.75);
-    backdrop-filter: blur(3px); /* leichter Blur im Hintergrund */
-    z-index: 9999;
-}
-
-/* Wird vom JS entfernt/gesetzt */
-#track-popup.hidden {
-    display: none;
-}
-
-/* Wenn NICHT hidden → anzeigen + Animation A */
-#track-popup:not(.hidden) {
+.event-track-row {
     display: flex;
-    animation: fadeInOverlay 0.25s ease-out;
+    flex-direction: column;
+    gap: 3px;
 }
 
-/* POPUP-INHALT */
-.popup-content {
-    background: var(--card-bg, #ffffff);
-    color: var(--text, #111);
-    padding: 20px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 500px;
-    max-height: 85%;
-    overflow-y: auto;
-    box-shadow: 0 0 20px rgba(0,0,0,0.45);
-    position: relative;
-}
-
-/* Inhalt slidet sanft hoch */
-#track-popup:not(.hidden) .popup-content {
-    animation: slideUpPopup 0.25s ease-out;
-}
-
-/* Close-Button */
-.close-btn {
-    position: absolute;
-    top: 8px;
-    right: 12px;
-    font-size: 22px;
-    cursor: pointer;
-}
-@keyframes fadeInOverlay {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes slideUpPopup {
-    from {
-        transform: translateY(20px);
-        opacity: 0.0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
 .event-attrs {
-    font-size: 13px;
-    margin: 4px 0 6px;
-    font-weight: 600;
+    font-size: 12px;
     opacity: 0.9;
+    font-weight: 600;
+}
+
+.event-drivers-row {
+    display: flex;
+    gap: 10px;
+}
+
+.event-driver-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.event-subtitle {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.driver-a .event-subtitle,
+.driver-a select {
+    /* z.B. gelblich */
+}
+
+.driver-b .event-subtitle,
+.driver-b select {
+    /* z.B. orange – kannst du nach Geschmack färben */
+}
+
+.event-boost-row {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-top: 4px;
+}
+
+.event-boost-row span {
+    font-size: 12px;
+}
+
+.event-boost-input {
+    width: 100%;
+    resize: vertical;
+    font-size: 12px;
+}
+
+.event-footer {
+    text-align: right;
+}
+
+.guide-link {
+    font-size: 12px;
+    text-decoration: underline;
+    cursor: pointer;
 }
