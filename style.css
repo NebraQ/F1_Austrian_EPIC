@@ -446,41 +446,76 @@ body.dark .boost-star.active {
     opacity: 1;
     text-decoration: underline;
 }
-/* GLOBAL POPUP */
+
+/* GLOBAL POPUP OVERLAY */
 #track-popup {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.75); /* Abdunkeln */
-    display: flex;
+    display: none; /* Standard: unsichtbar */
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Über alles */
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(3px); /* leichter Blur im Hintergrund */
+    z-index: 9999;
 }
 
+/* Wird vom JS entfernt/gesetzt */
 #track-popup.hidden {
     display: none;
 }
 
+/* Wenn NICHT hidden → anzeigen + Animation A */
+#track-popup:not(.hidden) {
+    display: flex;
+    animation: fadeInOverlay 0.25s ease-out;
+}
+
+/* POPUP-INHALT */
 .popup-content {
-    background: var(--card-bg);
-    color: var(--text);
+    background: var(--card-bg, #ffffff);
+    color: var(--text, #111);
     padding: 20px;
     border-radius: 12px;
     width: 90%;
     max-width: 500px;
     max-height: 85%;
     overflow-y: auto;
-    box-shadow: 0px 0px 20px rgba(0,0,0,0.45);
+    box-shadow: 0 0 20px rgba(0,0,0,0.45);
     position: relative;
 }
 
+/* Inhalt slidet sanft hoch */
+#track-popup:not(.hidden) .popup-content {
+    animation: slideUpPopup 0.25s ease-out;
+}
+
+/* Close-Button */
 .close-btn {
     position: absolute;
     top: 8px;
     right: 12px;
     font-size: 22px;
     cursor: pointer;
+}
+@keyframes fadeInOverlay {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUpPopup {
+    from {
+        transform: translateY(20px);
+        opacity: 0.0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
