@@ -640,3 +640,16 @@ body.dark .boost-star.active {
     cursor: pointer;
 }
 
+.popup-setup-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+}
+.popup-setup-body .setup-line {
+    display: flex;
+    justify-content: space-between;
+}
+.popup-setup-body .setup-label {
+    font-weight: 600;
+}
