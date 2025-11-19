@@ -771,8 +771,6 @@ Zwischen T9–11 ist Boost der Schlüssel zum Überholen. DRS meist besser T14�
 `
 };
 
-};
-
 
 /* ---------------------------------------
    AUTO-SAVE (localStorage)
