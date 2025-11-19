@@ -1,38 +1,7 @@
 /* ======================================================
    F1 Austrian EPIC – FULL APP LOGIC (DE/EN)
 ====================================================== */
-/* ---------------------------------------
-   TRANSLATIONS
------------------------------------------ */
-function translateAttrLabel(attr) {
-    const map = {
-        de: {
-            "Rennstart": "Rennstart",
-            "Tempo": "Tempo",
-            "Verteidigen": "Verteidigen",
-            "Überholen": "Überholen",
-            "Reifenmanagement": "Reifenman.",
-            "Kurvenverhalten": "Kurvenverhalten",
-            "Antrieb": "Antrieb"
-        },
-        en: {
-            "Rennstart": "Race Start",
-            "Tempo": "Pace",
-            "Verteidigen": "Defending",
-            "Überholen": "Overtaking",
-            "Reifenmanagement": "Tyre Mgmt",
-            "Kurvenverhalten": "Cornering",
-            "Antrieb": "Engine Power"
-        }
-    };
-    return map[currentLang]?.[attr] || attr;
-}
 
-function formatTrackAttrs(track) {
-    const a1 = translateAttrLabel(track.main1);
-    const a2 = translateAttrLabel(track.main2);
-    return `${a1} | ${a2}`;
-}
 
 const translations = {
     de: {
@@ -1103,6 +1072,7 @@ function applyLanguage(lang) {
     currentLang = lang;
     localStorage.setItem("ae_lang", lang);
 
+    // Language-Buttons markieren
     document.querySelectorAll(".lang-btn").forEach(btn =>
         btn.classList.remove("active")
     );
@@ -1114,11 +1084,10 @@ function applyLanguage(lang) {
     renderTrackList();
     renderSetups();
 
-    // Attribute & Laps aktualisieren (RICHTIG)
+    // Attribute & Laps aktualisieren
     updateAllEventAttrsAndLaps();
-}
 
-    // Nav-Tabs unten übersetzen (nur Buttons mit data-tab!)
+    // Nav-Buttons unten übersetzen (optional)
     document.querySelectorAll(".nav-btn").forEach(btn => {
         const key = btn.dataset.tab; // drivers, event, maps, setup
         if (!key) return;
@@ -1126,15 +1095,17 @@ function applyLanguage(lang) {
             btn.textContent = translations[lang][key];
         }
     });
+}
 
-    // Bereiche neu darstellen
-    renderDrivers();
-    renderEventPlanner();
-    renderTrackList();
-    renderSetups();
-    loadState(); // Werte wiederherstellen
-       // ... nach dem Wiederherstellen von Event & Setups
-    updateAllEventAttrs();
+document.getElementById("lang-switcher").addEventListener("click", (e) => {
+    const lang = e.target.dataset.lang;
+    if (!lang) return;
+    applyLanguage(lang);
+});
+
+
+
+
 
 let eventRainState = {};  // Rennen -> true/false
 
