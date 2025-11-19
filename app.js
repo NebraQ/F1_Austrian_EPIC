@@ -1,5 +1,5 @@
 /* ======================================================
-   F1 AUSTrian EPIC – FULL APP LOGIC (FINAL VERSION)
+   F1 Austrian EPIC – FULL APP LOGIC (FINAL VERSION)
 ====================================================== */
 
 /* ---------------------------------------
@@ -54,6 +54,7 @@ drivers.forEach(d => {
 function renderDrivers() {
     const container = document.getElementById("driver-list");
     container.innerHTML = "";
+   
 
     drivers.forEach(d => {
         let st = driverState[d.name];
@@ -103,11 +104,13 @@ function renderDrivers() {
 function toggleBoost(name) {
     driverState[name].boost = !driverState[name].boost;
     renderDrivers();
+    saveState();
 }
 
 function updateLevel(name, val) {
     driverState[name].level = parseInt(val);
     renderDrivers();
+    saveState();
 }
 
 renderDrivers();
@@ -266,7 +269,8 @@ function openTrackGuideFromPlanner(i) {
 }
 
 renderEventPlanner();
-
+document.getElementById("event-container").addEventListener("change", saveState);
+document.getElementById("setup-container").addEventListener("change", saveState);
 
 /* ---------------------------------------
    SETUP BOXES
