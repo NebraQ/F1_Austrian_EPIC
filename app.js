@@ -195,6 +195,44 @@ function updateLevel(name, val) {
 /* ---------------------------------------
    TRACK LIST + ATTRIBUTES
 ----------------------------------------- */
+/* ---------------------------------------
+   HELPER – Attribute übersetzen
+----------------------------------------- */
+function translateAttrLabel(attr) {
+    const map = {
+        de: {
+            "Rennstart": "Rennstart",
+            "Tempo": "Tempo",
+            "Verteidigen": "Verteidigen",
+            "Überholen": "Überholen",
+            "Reifenmanagement": "Reifenman.",
+            "Reifen-Management": "Reifenman.",
+            "Kurvenverhalten": "Kurvenverhalten",
+            "Antrieb": "Antrieb"
+        },
+        en: {
+            "Rennstart": "Race Start",
+            "Tempo": "Pace",
+            "Verteidigen": "Defending",
+            "Überholen": "Overtaking",
+            "Reifenmanagement": "Tyre Mgmt",
+            "Reifen-Management": "Tyre Mgmt",
+            "Kurvenverhalten": "Cornering",
+            "Antrieb": "Engine Power"
+        }
+    };
+
+    const m = map[currentLang] || map.de;
+    return m[attr] || attr;
+}
+
+function formatTrackAttrs(track) {
+    if (!track) return "";
+    const a1 = translateAttrLabel(track.main1);
+    const a2 = translateAttrLabel(track.main2);
+    return `${a1} | ${a2}`;
+}
+
 const tracks = [
     { id:1,  name:"Melbourne", main1:"Rennstart", main2:"Tempo", img:"01_Melbourne.png" },
     { id:2,  name:"Jeddah", main1:"Reifenmanagement", main2:"Tempo", img:"02_Jeddah.png" },
@@ -232,11 +270,16 @@ function renderTrackList() {
     tracks.forEach(t => {
         let div = document.createElement("div");
         div.className = "track-entry";
-        div.innerText = t.name;
+
+        const attrs = formatTrackAttrs(t);
+        // Anzeige: Melbourne — Rennstart | Tempo
+        div.textContent = attrs ? `${t.name} — ${attrs}` : t.name;
+
         div.onclick = () => openTrackPopup(t);
         list.appendChild(div);
     });
 }
+
 
 function getGuideText(trackName) {
     // aktuell nur DE – später EN-Variante möglich
@@ -313,6 +356,13 @@ function renderEventPlanner() {
                         <option>Hard/Soft</option>
                         <option>Hard/Med</option>
                         <option>Hard/Hard</option>
+                        <option>Soft/Soft/Soft</option>
+                        <option>Soft/Soft/Med</option>
+                        <option>Soft/Med/Soft</option>
+                        <option>Med/Soft/Soft</option>
+                        <option>Hard/Soft/Soft</option>
+                        <option>Soft/Hard/Soft</option>
+                        <option>Soft/Soft/Hard</option>
                     </select>
                 </div>
 
@@ -334,6 +384,13 @@ function renderEventPlanner() {
                         <option>Hard/Soft</option>
                         <option>Hard/Med</option>
                         <option>Hard/Hard</option>
+                        <option>Soft/Soft/Soft</option>
+                        <option>Soft/Soft/Med</option>
+                        <option>Soft/Med/Soft</option>
+                        <option>Med/Soft/Soft</option>
+                        <option>Hard/Soft/Soft</option>
+                        <option>Soft/Hard/Soft</option>
+                        <option>Soft/Soft/Hard</option>
                     </select>
                 </div>
 
