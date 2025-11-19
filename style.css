@@ -426,3 +426,22 @@ body.dark .boost-star {
 body.dark .boost-star.active {
     color: gold;
 }
+
+#lang-switcher {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.lang-btn {
+    margin-left: 12px;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.lang-btn.active {
+    opacity: 1;
+    text-decoration: underline;
+}
