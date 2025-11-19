@@ -57,6 +57,8 @@ const translations = {
         select: "Auswählen",
         boost10: "+10%",
         lapsLabel: "Runden",
+        showSetup: "Setup anzeigen",
+        setupForRace: "Setup für Rennen",   // Titel im Popup
 
         // Fahrer-Attribute
         attr_o: "Überholen",
@@ -97,6 +99,8 @@ const translations = {
         select: "Select",
         boost10: "+10%",
         lapsLabel: "Laps",
+        showSetup: "Show setup",
+        setupForRace: "Setup for race",
 
         attr_o: "Overtaking",
         attr_d: "Defending",
@@ -427,11 +431,14 @@ function renderEventPlanner() {
                     placeholder="z.B. Push Runde 1 in Sektor 2, danach sparen…"></textarea>
             </div>
 
-            <div class="event-footer">
-                <span class="guide-link" onclick="openTrackGuideFromPlanner(${i})">
-                    ${t.showGuide}
-                </span>
-            </div>
+         <div class="event-footer">
+             <span class="guide-link" onclick="openTrackGuideFromPlanner(${i})">
+                 ${t.showGuide}
+             </span>
+             <span class="guide-link" onclick="openSetupFromPlanner(${i})" style="margin-left:12px;">
+                 ${t.showSetup}
+             </span>
+        </div>
         `;
 
         eventBox.appendChild(row);
@@ -544,6 +551,79 @@ function renderSetups() {
         cont.appendChild(box);
     }
 }
+function getSetupForIndex(i) {
+    // Setup-Box Nummer i (1–8)
+    const setupBoxes = document.querySelectorAll("#setup-container .setup-box");
+    const box = setupBoxes[i - 1];
+    if (!box) return null;
+
+    const selects = box.querySelectorAll("select");
+    if (selects.length < 6) return null;
+
+    return {
+        brakes: selects[0].value,
+        gearbox: selects[1].value,
+        rearWing: selects[2].value,
+        frontWing: selects[3].value,
+        suspension: selects[4].value,
+        engine: selects[5].value
+    };
+}
+
+function openSetupPopup(i, setupData) {
+    const t = translations[currentLang];
+    const popup = document.getElementById("setup-popup");
+    const titleEl = document.getElementById("popup-setup-title");
+    const bodyEl  = document.getElementById("popup-setup-body");
+
+    if (!popup || !titleEl || !bodyEl) return;
+
+    titleEl.textContent = `${t.setupForRace} ${i}`;
+
+    if (!setupData) {
+        bodyEl.innerHTML = `<p>Kein Setup gefunden. Bitte im Tab "Setup" zuerst etwas auswählen.</p>`;
+    } else {
+        bodyEl.innerHTML = `
+            <div class="setup-line">
+                <span class="setup-label">${t.compBrakes}:</span>
+                <span>${setupData.brakes}</span>
+            </div>
+            <div class="setup-line">
+                <span class="setup-label">${t.compGearbox}:</span>
+                <span>${setupData.gearbox}</span>
+            </div>
+            <div class="setup-line">
+                <span class="setup-label">${t.compRearWing}:</span>
+                <span>${setupData.rearWing}</span>
+            </div>
+            <div class="setup-line">
+                <span class="setup-label">${t.compFrontWing}:</span>
+                <span>${setupData.frontWing}</span>
+            </div>
+            <div class="setup-line">
+                <span class="setup-label">${t.compSuspension}:</span>
+                <span>${setupData.suspension}</span>
+            </div>
+            <div class="setup-line">
+                <span class="setup-label">${t.compEngine}:</span>
+                <span>${setupData.engine}</span>
+            </div>
+        `;
+    }
+
+    popup.classList.remove("hidden");
+}
+
+// Event-Tab ruft das hier auf:
+function openSetupFromPlanner(i) {
+    const setup = getSetupForIndex(i);
+    openSetupPopup(i, setup);
+}
+
+// Close-Button vom Setup-Popup verbinden
+document.getElementById("closeSetupPopup")?.addEventListener("click", () => {
+    document.getElementById("setup-popup").classList.add("hidden");
+});
 
 
 /* ---------------------------------------
