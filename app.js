@@ -139,8 +139,7 @@ const tracks = [
     { id:20, name:"AbuDhabi", main1:"Überholen", main2:"Antrieb", img:"20_AbuDhabi.png" },
     { id:21, name:"Sakhir", main1:"Reifenmanagement", main2:"Antrieb", img:"21_Sakhir.png" },
     { id:22, name:"Barcelona", main1:"Reifenmanagement", main2:"Kurvenverhalten", img:"22_Barcelona.png" },
-    { id:23, name:"Suzuka", main1:"Verteidigen", main2:"Kurvenverhalten", img:"23_Suzuka.png" },
-    { id:24, name:"Placeholder", main1:"-", main2:"-"}
+    { id:23, name:"Suzuka", main1:"Verteidigen", main2:"Kurvenverhalten", img:"23_Suzuka.png" }
 ];
 
 
