@@ -359,94 +359,86 @@ document.getElementById("closePopup").onclick = () => {
 function renderEventPlanner() {
     const t = translations[currentLang];
     const eventBox = document.getElementById("event-container");
+    if (!eventBox) return;
+
     eventBox.innerHTML = "";
 
+    // Tyre-Optionen inkl. Wets
+    const tyreOptions = [
+        "Soft/Soft","Soft/Med","Soft/Hard",
+        "Med/Soft","Med/Med","Med/Hard",
+        "Hard/Soft","Hard/Med","Hard/Hard",
+        "Wet/Wet",
+        "Soft/Soft/Soft","Soft/Soft/Med","Soft/Med/Soft","Med/Soft/Soft"
+    ];
+
     for (let i = 1; i <= 8; i++) {
-        let row = document.createElement("div");
-        row.className = "event-row";
+        const row = document.createElement("div");
+        row.className = "event-card";
 
         row.innerHTML = `
-            <div class="event-header">${t.race} ${i}</div>
+            <div class="event-card-header">
+                <span class="event-race-label">${t.race} ${i}</span>
+                <span class="event-laps" id="ev-laps-${i}"></span>
+                <button type="button" id="ev-rain-${i}" class="rain-btn rain-off" onclick="toggleRain(${i})">
+                    🌧️
+                </button>
+            </div>
 
-            <select id="ev-track-${i}" class="event-input">
-                <option value="">${t.selectTrack}</option>
-                ${tracks.map(tr => `<option>${tr.name}</option>`).join("")}
-            </select>
-       <div class="event-attrs" id="ev-attrs-${i}"></div>
+            <div class="event-track-row">
+                <select id="ev-track-${i}" class="event-input">
+                    <option value="">${t.selectTrack}</option>
+                    ${tracks.map(tr => `<option>${tr.name}</option>`).join("")}
+                </select>
+                <div class="event-attrs" id="ev-attrs-${i}"></div>
+            </div>
 
-            <div class="event-two-col">
-
-                <div class="a-block">
-                    <div>${t.driverA}</div>
+            <div class="event-drivers-row">
+                <div class="event-driver-col driver-a">
+                    <div class="event-subtitle">${t.driverA}</div>
                     <select id="ev-driverA-${i}" class="event-input">
                         <option value=""></option>
                         ${drivers.map(d => `<option>${d.name}</option>`).join("")}
                     </select>
 
-                    <div>${t.tyreA}</div>
+                    <div class="event-subtitle tyres-label">${t.tyreA}</div>
                     <select id="ev-tyreA-${i}" class="event-input">
-                        <option>Soft/Soft</option>
-                        <option>Soft/Med</option>
-                        <option>Soft/Hard</option>
-                        <option>Med/Soft</option>
-                        <option>Med/Med</option>
-                        <option>Med/Hard</option>
-                        <option>Hard/Soft</option>
-                        <option>Hard/Med</option>
-                        <option>Hard/Hard</option>
-                        <option>Wets/Wets</option>
-                        <option>Soft/Soft/Soft</option>
-                        <option>Soft/Soft/Med</option>
-                        <option>Soft/Med/Soft</option>
-                        <option>Med/Soft/Soft</option>
-                        <option>Hard/Soft/Soft</option>
-                        <option>Soft/Hard/Soft</option>
-                        <option>Soft/Soft/Hard</option>
+                        ${tyreOptions.map(o => `<option>${o}</option>`).join("")}
                     </select>
                 </div>
 
-                <div class="b-block">
-                    <div>${t.driverB}</div>
+                <div class="event-driver-col driver-b">
+                    <div class="event-subtitle">${t.driverB}</div>
                     <select id="ev-driverB-${i}" class="event-input">
                         <option value=""></option>
                         ${drivers.map(d => `<option>${d.name}</option>`).join("")}
                     </select>
 
-                    <div>${t.tyreB}</div>
+                    <div class="event-subtitle tyres-label">${t.tyreB}</div>
                     <select id="ev-tyreB-${i}" class="event-input">
-                        <option>Soft/Soft</option>
-                        <option>Soft/Med</option>
-                        <option>Soft/Hard</option>
-                        <option>Med/Soft</option>
-                        <option>Med/Med</option>
-                        <option>Med/Hard</option>
-                        <option>Hard/Soft</option>
-                        <option>Hard/Med</option>
-                        <option>Hard/Hard</option>
-                        <option>Wets/Wets</option>
-                        <option>Soft/Soft/Soft</option>
-                        <option>Soft/Soft/Med</option>
-                        <option>Soft/Med/Soft</option>
-                        <option>Med/Soft/Soft</option>
-                        <option>Hard/Soft/Soft</option>
-                        <option>Soft/Hard/Soft</option>
-                        <option>Soft/Soft/Hard</option>
+                        ${tyreOptions.map(o => `<option>${o}</option>`).join("")}
                     </select>
                 </div>
-
             </div>
 
-            <div style="margin-top:8px;">
-                ${t.boost}: <input id="ev-boost-${i}" class="event-input" style="width:140px;">
+            <div class="event-boost-row">
+                <span>${t.boost}:</span>
+                <textarea id="ev-boost-${i}" class="event-boost-input" rows="2"
+                    placeholder="z.B. Push Runde 1 in Sektor 2, danach sparen…"></textarea>
             </div>
 
-            <div>
-                <span class="guide-link" onclick="openTrackGuideFromPlanner(${i})">${t.showGuide}</span>
+            <div class="event-footer">
+                <span class="guide-link" onclick="openTrackGuideFromPlanner(${i})">
+                    ${t.showGuide}
+                </span>
             </div>
         `;
 
         eventBox.appendChild(row);
     }
+
+    // Nach dem Rendern direkt Attribute + Runden aktualisieren
+    updateAllEventAttrsAndLaps();
 }
 
 
