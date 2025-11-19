@@ -3,14 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>F1 Austrian Epic</title>
+  <title>F1 Clash App</title>
+
+  <link rel="stylesheet" href="app.css">
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <h1 style="font-family:sans-serif;text-align:center;margin-top:40px;">
-    F1 Austrian EPIC – Test
-  </h1>
-  <p style="text-align:center;font-family:sans-serif;">
-    Wenn du das hier siehst, funktioniert GitHub Pages ✅
-  </p>
+
+<div id="app">
+    <!-- SCREENS -->
+    <div class="screen active" id="screen-drivers"></div>
+    <div class="screen" id="screen-event"></div>
+    <div class="screen" id="screen-maps"></div>
+    <div class="screen" id="screen-components"></div>
+
+    <!-- BOTTOM NAV -->
+    <div class="tabbar">
+        <button onclick="openTab('drivers')">👨‍✈️ Fahrer</button>
+        <button onclick="openTab('event')">📅 Event</button>
+        <button onclick="openTab('maps')">🗺️ Maps</button>
+        <button onclick="openTab('components')">⚙️ Setup</button>
+    </div>
+</div>
+
+<!-- MAP MODAL -->
+<div id="mapModal" class="modal hidden">
+    <div class="modal-content">
+        <span class="close" onclick="closeMap()">×</span>
+        <img id="mapImage" src="">
+        <div id="mapGuide"></div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+
+<!-- Service Worker für PWA -->
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js").catch(console.error);
+}
+</script>
+
 </body>
 </html>
