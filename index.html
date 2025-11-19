@@ -1,48 +1,99 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>F1 Clash App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Austrian EPIC – F1 Clash Tool</title>
 
-  <link rel="stylesheet" href="app.css">
-  <link rel="manifest" href="manifest.json">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
 <body>
 
-<div id="app">
-    <!-- SCREENS -->
-    <div class="screen active" id="screen-drivers"></div>
-    <div class="screen" id="screen-event"></div>
-    <div class="screen" id="screen-maps"></div>
-    <div class="screen" id="screen-components"></div>
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-btn active" data-tab="drivers">Fahrer</div>
+        <div class="nav-btn" data-tab="event">Event</div>
+        <div class="nav-btn" data-tab="maps">Maps</div>
+        <div class="nav-btn" data-tab="setup">Setup</div>
+    </nav>
 
-    <!-- BOTTOM NAV -->
-    <div class="tabbar">
-        <button onclick="openTab('drivers')">👨‍✈️ Fahrer</button>
-        <button onclick="openTab('event')">📅 Event</button>
-        <button onclick="openTab('maps')">🗺️ Maps</button>
-        <button onclick="openTab('components')">⚙️ Setup</button>
+    <!-- ============================
+             TAB: DRIVERS
+    ============================= -->
+    <div id="drivers" class="page active">
+        <div class="page-title">Fahrer</div>
+        <div id="drivers-list"></div>
     </div>
-</div>
 
-<!-- MAP MODAL -->
-<div id="mapModal" class="modal hidden">
-    <div class="modal-content">
-        <span class="close" onclick="closeMap()">×</span>
-        <img id="mapImage" src="">
-        <div id="mapGuide"></div>
+    <!-- ============================
+             TAB: EVENT PLANNER
+    ============================= -->
+    <div id="event" class="page">
+        <div class="page-title">Event Planner</div>
+
+        <!-- EVENT → Header row -->
+        <div class="event-grid" style="margin-bottom: 10px;">
+            <div class="event-col-title">Strecke</div>
+            <div class="event-col-title">Werte</div>
+            <div class="event-col-title">Driver A</div>
+            <div class="event-col-title">Tyres A</div>
+            <div class="event-col-title">Driver B</div>
+            <div class="event-col-title">Tyres B</div>
+            <div class="event-col-title">Boost</div>
+            <div class="event-col-title">Guide</div>
+        </div>
+
+        <div id="event-rows"></div>
+
+        <!-- PDF EXPORT BUTTON -->
+        <div style="text-align:center; margin-top:20px;">
+            <button id="exportPDF" style="
+                padding:12px 22px;
+                font-size:16px;
+                background:#e41d1d;
+                color:white;
+                border:none;
+                border-radius:8px;
+                cursor:pointer;">
+                Export als PDF
+            </button>
+        </div>
     </div>
-</div>
 
-<script src="app.js"></script>
+    <!-- ============================
+             TAB: MAPS
+    ============================= -->
+    <div id="maps" class="page">
+        <div class="page-title">Strecken Maps</div>
 
-<!-- Service Worker für PWA -->
-<script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js").catch(console.error);
-}
-</script>
+        <div id="maps-grid" class="track-grid"></div>
+
+        <!-- POPUP MODAL -->
+        <div id="map-popup" class="map-popup">
+            <div class="map-popup-content" id="map-popup-content"></div>
+        </div>
+    </div>
+
+    <!-- ============================
+             TAB: SETUP OVERVIEW
+    ============================= -->
+    <div id="setup" class="page">
+        <div class="page-title">Setup</div>
+
+        <div id="setup-grid" style="
+            display:grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap:15px;">
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="app.js"></script>
 
 </body>
 </html>
