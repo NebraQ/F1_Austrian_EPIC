@@ -298,40 +298,6 @@ function renderDrivers() {
 }
 
 
-      /* Card Bauen */
-        let card = document.createElement("div");
-        card.className = `driver-card ${d.team}`;
-
-        card.innerHTML = `
-            <div class="driver-top">
-                <div class="driver-name">${d.name}</div>
-                <div style="display:flex; align-items:center;">
-                    <span class="boost-star ${st.boost ? "active" : ""}" 
-                          onclick="toggleBoost('${d.name}')">⭐</span>
-                    ${st.boost ? `<span class="boost-text">${t.boost10}</span>` : ""}
-                </div>
-            </div>
-
-            <div class="driver-stats">
-                <div class="stat-box">${t.attr_o}<br><b>${calcStat(d.base.o)}</b></div>
-                <div class="stat-box">${t.attr_d}<br><b>${calcStat(d.base.d)}</b></div>
-                <div class="stat-box">${t.attr_q}<br><b>${calcStat(d.base.q)}</b></div>
-                <div class="stat-box">${t.attr_s}<br><b>${calcStat(d.base.s)}</b></div>
-                <div class="stat-box">${t.attr_t}<br><b>${calcStat(d.base.t)}</b></div>
-            </div>
-
-            <div style="margin-top:12px;">
-                ${t.level}:
-                <input type="number" class="driver-level-input"
-                       min="1" max="11" value="${st.level}"
-                       onchange="updateLevel('${d.name}', this.value)">
-            </div>
-        `;
-
-        container.appendChild(card);
-    });
-}
-
 function toggleBoost(name) {
     driverState[name].boost = !driverState[name].boost;
     renderDrivers();
