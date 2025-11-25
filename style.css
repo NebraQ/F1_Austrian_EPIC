@@ -650,6 +650,27 @@ body.dark .boost-star.active {
     display: flex;
     justify-content: space-between;
 }
+
+.driver-sort-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.driver-sort-select {
+    padding: 4px 6px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,0.2);
+    font-size: 14px;
+}
+body.dark .driver-sort-select {
+    background: #222;
+    color: #eee;
+    border-color: #555;
+}
 .popup-setup-body .setup-label {
     font-weight: 600;
 }
