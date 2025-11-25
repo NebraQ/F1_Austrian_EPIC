@@ -45,7 +45,18 @@ const translations = {
         compRearWing: "Heckflügel",
         compFrontWing: "Frontflügel",
         compSuspension: "Aufhängung",
-        compEngine: "Motor"
+        compEngine: "Motor",
+
+        // Sortierung
+    sortLabel: "Sortierung",
+    sort_name: "Name",
+    sort_overtake: "Überholen",
+    sort_defend: "Verteidigen",
+    sort_quali: "Qualifying",
+    sort_start: "Rennstart",
+    sort_tyre: "Reifenman.",
+    sort_overall: "Best Overall",
+   
     },
     en: {
         drivers: "Drivers",
@@ -84,7 +95,17 @@ const translations = {
         compRearWing: "Rear Wing",
         compFrontWing: "Front Wing",
         compSuspension: "Suspension",
-        compEngine: "Engine"
+        compEngine: "Engine",
+
+        // Sort
+        sortLabel: "Sort by",
+        sort_name: "Name",
+        sort_overtake: "Overtaking",
+        sort_defend: "Defending",
+        sort_quali: "Qualifying",
+        sort_start: "Race Start",
+        sort_tyre: "Tyre Mgmt",
+        sort_overall: "Best Overall"
     }
 };
 
@@ -114,16 +135,16 @@ tabs.forEach(tab => {
    DRIVER BASE DATA (Level 1 Stats)
 ----------------------------------------- */
 const drivers = [
-    { name: "Carlos Sainz", team: "team-blue",      base: { o:47,d:67,q:52,s:57,t:62 } },
-    { name: "Charles Leclerc", team: "team-red",    base: { o:57,d:52,q:67,s:62,t:47 } },
-    { name: "Fernando Alonso", team: "team-green",  base: { o:61,d:66,q:56,s:71,t:51 } },
-    { name: "George Russell", team: "team-silver",  base: { o:67,d:52,q:72,s:57,t:62 } },
-    { name: "Lando Norris", team: "team-orange",    base: { o:57,d:67,q:62,s:52,t:72 } },
-    { name: "Oscar Piastri", team: "team-orange",   base: { o:67,d:62,q:52,s:57,t:47 } },
-    { name: "Lewis Hamilton", team: "team-red",     base: { o:72,d:52,q:62,s:57,t:67 } },
     { name: "Max Verstappen", team: "team-blue",    base: { o:62,d:72,q:67,s:52,t:57 } },
-    { name: "Nico Hülkenberg", team: "team-green",  base: { o:57,d:47,q:67,s:52,t:62 } },
-    { name: "Pierre Gasly", team: "team-pink",      base: { o:52,d:47,q:62,s:57,t:67 } }
+    { name: "Lando Norris", team: "team-orange",    base: { o:57,d:67,q:62,s:52,t:72 } },
+    { name: "Lewis Hamilton", team: "team-red",     base: { o:72,d:52,q:62,s:57,t:67 } },
+    { name: "George Russell", team: "team-silver",  base: { o:67,d:52,q:72,s:57,t:62 } },
+    { name: "Fernando Alonso", team: "team-green",  base: { o:61,d:66,q:56,s:71,t:51 } },
+    { name: "Charles Leclerc", team: "team-red",    base: { o:57,d:52,q:67,s:62,t:47 } },
+    { name: "Oscar Piastri", team: "team-orange",   base: { o:67,d:62,q:52,s:57,t:47 } },
+    { name: "Carlos Sainz", team: "team-blue",      base: { o:47,d:67,q:52,s:57,t:62 } },
+    { name: "Pierre Gasly", team: "team-pink",      base: { o:52,d:47,q:62,s:57,t:67 } },
+    { name: "Nico Hülkenberg", team: "team-green",  base: { o:57,d:47,q:67,s:52,t:62 } }
 ];
 
 /* Driver Level & Boost State */
@@ -132,6 +153,42 @@ drivers.forEach(d => {
     driverState[d.name] = { level: 1, boost: false };
 });
 
+/* Driver Sort*/
+let driverSortMode = "name"; // name, o, d, q, s, t, overall
+
+const savedSort = localStorage.getItem("ae_driver_sort_mode");
+if (savedSort) driverSortMode = savedSort;
+
+function renderDriverSortBar() {
+    const t = translations[currentLang];
+    const bar = document.getElementById("driver-sort-bar");
+    if (!bar) return;
+
+    bar.innerHTML = `
+        <span>${t.sortLabel}:</span>
+        <select id="driver-sort-select" class="driver-sort-select"
+                onchange="setDriverSortMode(this.value)">
+            <option value="name" ${driverSortMode === "name" ? "selected" : ""}>${t.sort_name}</option>
+            <option value="o" ${driverSortMode === "o" ? "selected" : ""}>${t.sort_overtake}</option>
+            <option value="d" ${driverSortMode === "d" ? "selected" : ""}>${t.sort_defend}</option>
+            <option value="q" ${driverSortMode === "q" ? "selected" : ""}>${t.sort_quali}</option>
+            <option value="s" ${driverSortMode === "s" ? "selected" : ""}>${t.sort_start}</option>
+            <option value="t" ${driverSortMode === "t" ? "selected" : ""}>${t.sort_tyre}</option>
+            <option value="overall" ${driverSortMode === "overall" ? "selected" : ""}>${t.sort_overall}</option>
+        </select>
+    `;
+}
+
+function setDriverSortMode(mode) {
+    driverSortMode = mode;
+    // Optional: Sortmodus merken
+    try {
+        localStorage.setItem("ae_driver_sort_mode", mode);
+    } catch(e) {}
+
+    renderDrivers();
+}
+
 
 /* ---------------------------------------
    RENDER DRIVERS (mit Sprache)
@@ -139,9 +196,66 @@ drivers.forEach(d => {
 function renderDrivers() {
     const t = translations[currentLang];
     const container = document.getElementById("driver-list");
+    if (!container) return;
+
+    // Sort-Bar separat rendern (inkl. Sprache)
+    renderDriverSortBar();
+
     container.innerHTML = "";
 
-    drivers.forEach(d => {
+    // Hilfsfunktion: Wert mit Level & Boost
+    const calcStatWithState = (baseVal, state) => {
+        let v = baseVal + (state.level - 1) * 4;
+        if (state.boost) v = Math.round(v * 1.1);
+        return v;
+    };
+
+    // Sortierte Kopie der Fahrer
+    const sorted = [...drivers].sort((a, b) => {
+        const sa = driverState[a.name] || { level: 1, boost: false };
+        const sb = driverState[b.name] || { level: 1, boost: false };
+
+        const ao = calcStatWithState(a.base.o, sa);
+        const ad = calcStatWithState(a.base.d, sa);
+        const aq = calcStatWithState(a.base.q, sa);
+        const as = calcStatWithState(a.base.s, sa);
+        const at = calcStatWithState(a.base.t, sa);
+
+        const bo = calcStatWithState(b.base.o, sb);
+        const bd = calcStatWithState(b.base.d, sb);
+        const bq = calcStatWithState(b.base.q, sb);
+        const bs = calcStatWithState(b.base.s, sb);
+        const bt = calcStatWithState(b.base.t, sb);
+
+        let va, vb;
+
+        switch (driverSortMode) {
+            case "o":
+                va = ao; vb = bo; break;
+            case "d":
+                va = ad; vb = bd; break;
+            case "q":
+                va = aq; vb = bq; break;
+            case "s":
+                va = as; vb = bs; break;
+            case "t":
+                va = at; vb = bt; break;
+            case "overall":
+                va = ao + ad + aq + as + at;
+                vb = bo + bd + bq + bs + bt;
+                break;
+            case "name":
+            default:
+                // Name aufsteigend
+                return a.name.localeCompare(b.name, "de");
+        }
+
+        // Hoher Wert zuerst (absteigend)
+        return vb - va;
+    });
+
+    // Cards nach sortierter Reihenfolge rendern
+    sorted.forEach(d => {
         let st = driverState[d.name];
 
         const calcStat = val => {
@@ -150,6 +264,41 @@ function renderDrivers() {
             return newVal;
         };
 
+        let card = document.createElement("div");
+        card.className = `driver-card ${d.team}`;
+
+        card.innerHTML = `
+            <div class="driver-top">
+                <div class="driver-name">${d.name}</div>
+                <div style="display:flex; align-items:center;">
+                    <span class="boost-star ${st.boost ? "active" : ""}" 
+                          onclick="toggleBoost('${d.name}')">⭐</span>
+                    ${st.boost ? `<span class="boost-text">${t.boost10}</span>` : ""}
+                </div>
+            </div>
+
+            <div class="driver-stats">
+                <div class="stat-box">${t.attr_o}<br><b>${calcStat(d.base.o)}</b></div>
+                <div class="stat-box">${t.attr_d}<br><b>${calcStat(d.base.d)}</b></div>
+                <div class="stat-box">${t.attr_q}<br><b>${calcStat(d.base.q)}</b></div>
+                <div class="stat-box">${t.attr_s}<br><b>${calcStat(d.base.s)}</b></div>
+                <div class="stat-box">${t.attr_t}<br><b>${calcStat(d.base.t)}</b></div>
+            </div>
+
+            <div style="margin-top:12px;">
+                ${t.level}:
+                <input type="number" class="driver-level-input"
+                       min="1" max="11" value="${st.level}"
+                       onchange="updateLevel('${d.name}', this.value)">
+            </div>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+
+      /* Card Bauen */
         let card = document.createElement("div");
         card.className = `driver-card ${d.team}`;
 
