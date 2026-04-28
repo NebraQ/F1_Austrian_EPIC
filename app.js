@@ -174,10 +174,18 @@ drivers.forEach(d => {
 });
 
 /* Driver Sort*/
-let driverSortMode = "name"; // name, o, d, q, s, t, overall
+let driverSortMode = localStorage.getItem("ae_driver_sort_mode") || "name";
 
-const savedSort = localStorage.getItem("ae_driver_sort_mode");
-if (savedSort) driverSortMode = savedSort;
+function calcDriverStat(name, key) {
+    const st = driverState[name];
+    let val = Number(st.stats[key]) || 0;
+
+    if (st.boost) {
+        val = Math.round(val * 1.1);
+    }
+
+    return val;
+}
 
 function renderDriverSortBar() {
     const t = translations[currentLang];
@@ -201,95 +209,40 @@ function renderDriverSortBar() {
 
 function setDriverSortMode(mode) {
     driverSortMode = mode;
-    // Optional: Sortmodus merken
-    try {
-        localStorage.setItem("ae_driver_sort_mode", mode);
-    } catch(e) {}
-
+    localStorage.setItem("ae_driver_sort_mode", mode);
     renderDrivers();
 }
 
-
-/* ---------------------------------------
-   RENDER DRIVERS (mit Sprache)
------------------------------------------ */
 function renderDrivers() {
     const t = translations[currentLang];
     const container = document.getElementById("driver-list");
     if (!container) return;
 
-    // Sort-Bar separat rendern (inkl. Sprache)
     renderDriverSortBar();
-
     container.innerHTML = "";
 
-    // Hilfsfunktion: Wert mit Level & Boost
-    const calcStat = key => {
-    let newVal = st.stats[key];
-
-    if (st.boost) {
-        newVal = Math.round(newVal * 1.1);
-    }
-
-    return newVal;
-    };
-    };
-
-    // Sortierte Kopie der Fahrer
     const sorted = [...drivers].sort((a, b) => {
-        const sa = driverState[a.name] || { level: 1, boost: false };
-        const sb = driverState[b.name] || { level: 1, boost: false };
-
-        const ao = calcStatWithState(b.base.o, sb);
-        const ad = calcStatWithState(b.base.d, sb);
-        const aq = calcStatWithState(b.base.q, sb);
-        const as = calcStatWithState(b.base.s, sb);
-        const at = calcStatWithState(b.base.t, sb);
-
-        const bo = calcStatWithState(b.base.o, sb);
-        const bd = calcStatWithState(b.base.d, sb);
-        const bq = calcStatWithState(b.base.q, sb);
-        const bs = calcStatWithState(b.base.s, sb);
-        const bt = calcStatWithState(b.base.t, sb);
+        if (driverSortMode === "name") {
+            return a.name.localeCompare(b.name, "de");
+        }
 
         let va, vb;
 
-        switch (driverSortMode) {
-            case "o":
-                va = ao; vb = bo; break;
-            case "d":
-                va = ad; vb = bd; break;
-            case "q":
-                va = aq; vb = bq; break;
-            case "s":
-                va = as; vb = bs; break;
-            case "t":
-                va = at; vb = bt; break;
-            case "overall":
-                va = ao + ad + aq + as + at;
-                vb = bo + bd + bq + bs + bt;
-                break;
-            case "name":
-            default:
-                // Name aufsteigend
-                return a.name.localeCompare(b.name, "de");
+        if (driverSortMode === "overall") {
+            va = ["o","d","q","s","t"].reduce((sum, k) => sum + calcDriverStat(a.name, k), 0);
+            vb = ["o","d","q","s","t"].reduce((sum, k) => sum + calcDriverStat(b.name, k), 0);
+        } else {
+            va = calcDriverStat(a.name, driverSortMode);
+            vb = calcDriverStat(b.name, driverSortMode);
         }
 
-        // Hoher Wert zuerst (absteigend)
         return vb - va;
     });
 
-    // Cards nach sortierter Reihenfolge rendern
     sorted.forEach(d => {
-        let st = driverState[d.name];
+        const st = driverState[d.name];
 
-        const calcStat = val => {
-            let newVal = val + (st.level - 1) * 4;
-            if (st.boost) newVal = Math.round(newVal * 1.1);
-            return newVal;
-        };
-
-        let card = document.createElement("div");
+        const card = document.createElement("div");
         card.className = `driver-card ${d.team}`;
 
         card.innerHTML = `
@@ -303,18 +256,11 @@ function renderDrivers() {
             </div>
 
             <div class="driver-stats">
-            <div class="stat-box">${t.attr_o}<br><b>${calcStat("o")}</b></div>
-            <div class="stat-box">${t.attr_d}<br><b>${calcStat("d")}</b></div>
-            <div class="stat-box">${t.attr_q}<br><b>${calcStat("q")}</b></div>
-            <div class="stat-box">${t.attr_s}<br><b>${calcStat("s")}</b></div>
-            <div class="stat-box">${t.attr_t}<br><b>${calcStat("t")}</b></div>
-            </div>
-
-            <div style="margin-top:12px;">
-                ${t.level}:
-                <input type="number" class="driver-level-input"
-                       min="1" max="11" value="${st.level}"
-                       onchange="updateLevel('${d.name}', this.value)">
+                ${renderStatInput(d.name, "o", t.attr_o)}
+                ${renderStatInput(d.name, "d", t.attr_d)}
+                ${renderStatInput(d.name, "q", t.attr_q)}
+                ${renderStatInput(d.name, "s", t.attr_s)}
+                ${renderStatInput(d.name, "t", t.attr_t)}
             </div>
         `;
 
@@ -322,17 +268,34 @@ function renderDrivers() {
     });
 }
 
+function renderStatInput(name, key, label) {
+    const rawValue = driverState[name].stats[key];
+    const displayValue = calcDriverStat(name, key);
+
+    return `
+        <div class="stat-box">
+            ${label}<br>
+            <input type="number"
+                   class="driver-stat-input"
+                   min="0"
+                   max="999"
+                   value="${rawValue}"
+                   onchange="updateDriverStat('${name}', '${key}', this.value)">
+            ${driverState[name].boost ? `<small>Boost: ${displayValue}</small>` : ""}
+        </div>
+    `;
+}
+
+function updateDriverStat(name, key, val) {
+    driverState[name].stats[key] = parseInt(val, 10) || 0;
+    saveState();
+    renderDrivers();
+}
 
 function toggleBoost(name) {
     driverState[name].boost = !driverState[name].boost;
-    renderDrivers();
     saveState();
-}
-
-function updateLevel(name, val) {
-    driverState[name].level = parseInt(val);
     renderDrivers();
-    saveState();
 }
 
 
