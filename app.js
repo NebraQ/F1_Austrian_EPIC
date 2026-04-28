@@ -46,6 +46,7 @@ const translations = {
         compFrontWing: "Frontflügel",
         compSuspension: "Aufhängung",
         compEngine: "Motor",
+        compBattery: "Batterie",
 
         // Sortierung
     sortLabel: "Sortierung",
@@ -96,6 +97,7 @@ const translations = {
         compFrontWing: "Front Wing",
         compSuspension: "Suspension",
         compEngine: "Engine",
+        compBattery: "Battery",
 
         // Sort
         sortLabel: "Sort by",
@@ -135,22 +137,40 @@ tabs.forEach(tab => {
    DRIVER BASE DATA (Level 1 Stats)
 ----------------------------------------- */
 const drivers = [
-    { name: "Max Verstappen", team: "team-blue",    base: { o:62,d:72,q:67,s:52,t:57 } },
-    { name: "Lando Norris", team: "team-orange",    base: { o:57,d:67,q:62,s:52,t:72 } },
-    { name: "Lewis Hamilton", team: "team-red",     base: { o:72,d:52,q:62,s:57,t:67 } },
-    { name: "George Russell", team: "team-silver",  base: { o:67,d:52,q:72,s:57,t:62 } },
-    { name: "Fernando Alonso", team: "team-green",  base: { o:61,d:66,q:56,s:71,t:51 } },
-    { name: "Charles Leclerc", team: "team-red",    base: { o:57,d:52,q:67,s:62,t:47 } },
-    { name: "Oscar Piastri", team: "team-orange",   base: { o:67,d:62,q:52,s:57,t:47 } },
-    { name: "Carlos Sainz", team: "team-blue",      base: { o:47,d:67,q:52,s:57,t:62 } },
-    { name: "Pierre Gasly", team: "team-pink",      base: { o:52,d:47,q:62,s:57,t:67 } },
-    { name: "Nico Hülkenberg", team: "team-green",  base: { o:57,d:47,q:67,s:52,t:62 } }
+    { name: "Gabriel Bortoleto",     series: 10, team: "team-green",  base: { o:33,d:32,q:45,s:34,t:31 } },
+    { name: "Lance Stroll",          series: 10, team: "team-green",  base: { o:29,d:48,q:41,s:22,t:35 } },
+    { name: "Esteban Ocon",          series: 10, team: "team-pink",   base: { o:25,d:36,q:37,s:34,t:43 } },
+    { name: "Nico Hülkenberg",       series: 10, team: "team-green",  base: { o:25,d:45,q:55,s:25,t:25 } },
+    { name: "Alex Albon",            series: 10, team: "team-blue",   base: { o:15,d:50,q:50,s:25,t:35 } },
+    { name: "Sergio Pérez",          series: 10, team: "team-blue",   base: { o:15,d:40,q:40,s:40,t:40 } },
+    { name: "Oliver Bearman",        series: 11, team: "team-red",    base: { o:25,d:45,q:55,s:45,t:30 } },
+    { name: "Isack Hadjar",          series: 11, team: "team-blue",   base: { o:35,d:55,q:40,s:35,t:35 } },
+    { name: "Fernando Alonso",       series: 11, team: "team-green",  base: { o:40,d:40,q:40,s:40,t:40 } },
+    { name: "Carlos Sainz",          series: 11, team: "team-blue",   base: { o:25,d:50,q:50,s:25,t:50 } },
+    { name: "Andrea Kimi Antonelli", series: 11, team: "team-silver", base: { o:30,d:35,q:60,s:40,t:35 } },
+    { name: "Lewis Hamilton",        series: 12, team: "team-red",    base: { o:39,d:44,q:54,s:29,t:54 } },
+    { name: "Charles Leclerc",       series: 12, team: "team-red",    base: { o:24,d:49,q:59,s:49,t:39 } },
+    { name: "George Russell",        series: 12, team: "team-silver", base: { o:44,d:39,q:49,s:39,t:49 } },
+    { name: "Oscar Piastri",         series: 12, team: "team-orange", base: { o:34,d:59,q:44,s:44,t:39 } },
+    { name: "Max Verstappen",        series: 12, team: "team-blue",   base: { o:39,d:44,q:64,s:29,t:44 } },
+    { name: "Lando Norris",          series: 12, team: "team-orange", base: { o:34,d:39,q:59,s:34,t:54 } },
 ];
 
 /* Driver Level & Boost State */
 let driverState = {};
+
 drivers.forEach(d => {
-    driverState[d.name] = { level: 1, boost: false };
+    driverState[d.name] = {
+        level: 1,
+        boost: false,
+        stats: {
+            o: d.base.o,
+            d: d.base.d,
+            q: d.base.q,
+            s: d.base.s,
+            t: d.base.t
+        }
+    };
 });
 
 /* Driver Sort*/
@@ -205,7 +225,7 @@ function renderDrivers() {
 
     // Hilfsfunktion: Wert mit Level & Boost
     const calcStatWithState = (baseVal, state) => {
-        let v = baseVal + (state.level - 1) * 4;
+        let newVal = val + (st.level - 1) * 4;
         if (state.boost) v = Math.round(v * 1.1);
         return v;
     };
