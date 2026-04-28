@@ -5,7 +5,7 @@
 const driverImages = {
     "Max Verstappen": "Verstappen.png",
     "Lando Norris": "Norris.png",
-    "Gabriel Bortoleto": "Bortoletto.png",
+    "Gabriel Bortoleto": "Bortoleto.png",
     "Lance Stroll": "Stroll.png",
     "Esteban Ocon": "Ocon.png",
     "Nico Hülkenberg": "Hülkenberg.png",
