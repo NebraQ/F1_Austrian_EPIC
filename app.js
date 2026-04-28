@@ -2,6 +2,26 @@
    F1 Austrian EPIC – FULL APP LOGIC (DE/EN)
 ====================================================== */
 
+const driverImages = {
+    "Max Verstappen": "Verstappen.png",
+    "Lando Norris": "Norris.png",
+    "Gabriel Bortoleto": "Bortoleto.png",
+    "Lance Stroll": "Stroll.png",
+    "Esteban Ocon": "Ocon.png",
+    "Nico Hülkenberg": "Hülkenberg.png",
+    "Alex Albon": "Albon.png",
+    "Alexander Albon": "Albon.png",
+    "Sergio Pérez": "Perez.png",
+    "Oliver Bearman": "Bearman.png",
+    "Isack Hadjar": "Hadjar.png",
+    "Fernando Alonso": "Alonso.png",
+    "Carlos Sainz": "Sainz.png",
+    "Andrea Kimi Antonelli": "Kimi.png",
+    "Lewis Hamilton": "Hamilton.png",
+    "Charles Leclerc": "Lecler.png",
+    "George Russell": "Rus.png",
+    "Oscar Piastri": "Piastri.png"
+};
 
 const translations = {
     de: {
@@ -239,33 +259,55 @@ function renderDrivers() {
         return vb - va;
     });
 
-    sorted.forEach(d => {
-        const st = driverState[d.name];
+sorted.forEach(d => {
+    const st = driverState[d.name];
 
-        const card = document.createElement("div");
-        card.className = `driver-card ${d.team}`;
+    const card = document.createElement("div");
+    card.className = `driver-card ${d.team}`;
 
-        card.innerHTML = `
-            <div class="driver-top">
-                <div class="driver-name">${d.name}</div>
-                <div style="display:flex; align-items:center;">
-                    <span class="boost-star ${st.boost ? "active" : ""}" 
-                          onclick="toggleBoost('${d.name}')">⭐</span>
-                    ${st.boost ? `<span class="boost-text">${t.boost10}</span>` : ""}
+    const imageFile = driverImages[d.name] || "default.png";
+
+    card.innerHTML = `
+        <div class="driver-card-left">
+            <img 
+                src="assets/drivers/${imageFile}" 
+                alt="${d.name}" 
+                class="driver-portrait"
+            >
+        </div>
+
+        <div class="driver-card-right">
+            <div class="driver-name">${d.name}</div>
+            <div class="driver-series">Serie ${d.series ?? d.serie ?? "-"}</div>
+
+            <div class="driver-stats-list">
+                <div class="driver-stat-row">
+                    <span>Überholen</span>
+                    <strong>${calcDriverStat(d.name, "o")}</strong>
+                </div>
+                <div class="driver-stat-row">
+                    <span>Verteidigen</span>
+                    <strong>${calcDriverStat(d.name, "d")}</strong>
+                </div>
+                <div class="driver-stat-row">
+                    <span>Qualifikation</span>
+                    <strong>${calcDriverStat(d.name, "q")}</strong>
+                </div>
+                <div class="driver-stat-row">
+                    <span>Rennstart</span>
+                    <strong>${calcDriverStat(d.name, "s")}</strong>
+                </div>
+                <div class="driver-stat-row">
+                    <span>Reifenmanagement</span>
+                    <strong>${calcDriverStat(d.name, "t")}</strong>
                 </div>
             </div>
+        </div>
+    `;
 
-            <div class="driver-stats">
-                ${renderStatInput(d.name, "o", t.attr_o)}
-                ${renderStatInput(d.name, "d", t.attr_d)}
-                ${renderStatInput(d.name, "q", t.attr_q)}
-                ${renderStatInput(d.name, "s", t.attr_s)}
-                ${renderStatInput(d.name, "t", t.attr_t)}
-            </div>
-        `;
-
-        container.appendChild(card);
-    });
+    container.appendChild(card);
+});
+   
 }
 
 function renderStatInput(name, key, label) {
