@@ -102,72 +102,98 @@ header h1 {
 }
 
 .driver-card {
-    background: white;
-    padding: 12px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0,0,0,0.15);
-    border-left: 10px solid transparent;
+    display: flex;
+    align-items: stretch;
+    gap: 14px;
+    padding: 14px;
+    border-radius: 16px;
+    background: rgba(15, 20, 35, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
 }
 
-/* Team Farben */
-.team-red { border-color: #c80000 !important; }
-.team-blue { border-color: #0022aa !important; }
-.team-orange { border-color: #ff7b00 !important; }
-.team-green { border-color: #0f9d00 !important; }
-.team-pink { border-color: #ff54b8 !important; }
-.team-silver { border-color: #bbbbbb !important; }
-
-.driver-top {
+.driver-card-left {
+    width: 38%;
+    min-width: 110px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.driver-portrait {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.driver-card-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .driver-name {
-    font-size: 19px;
-    font-weight: 600;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 2px;
 }
 
-.driver-level-input {
-    width: 45px;
-    height: 28px;
-    padding: 3px;
-    font-size: 14px;
+.driver-series {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.65);
+    margin-bottom: 10px;
 }
 
-.boost-star {
-    font-size: 12px;
-    cursor: pointer;
-    color: #777777;
-}
-
-.boost-star.active {
-    font-size: 24px;
-    color: gold;
-    font-weight: bold;
-}
-
-.boost-text {
-    color: green;
-    font-size: 14px;
-    padding-left: 5px;
-}
-
-.driver-stats {
-    margin-top: 10px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+.driver-stats-list {
+    display: flex;
+    flex-direction: column;
     gap: 6px;
 }
 
-.stat-box {
-    padding: 6px;
-    background: #eee;
-    border-radius: 6px;
-    font-size: 14px;
-    text-align: center;
+.driver-stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.82);
 }
 
+.driver-stat-row strong {
+    min-width: 28px;
+    text-align: right;
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 520px) {
+    .driver-card {
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .driver-card-left {
+        width: 34%;
+        min-width: 90px;
+    }
+
+    .driver-portrait {
+        max-width: 120px;
+    }
+
+    .driver-name {
+        font-size: 0.95rem;
+    }
+
+    .driver-stat-row {
+        font-size: 0.76rem;
+    }
+}
 
 /* ------------------------------
    EVENT PLANNER
