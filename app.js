@@ -283,14 +283,13 @@ sorted.forEach(d => {
         </div>
 
         <div class="driver-info-box">
+            <div class="driver-series-badge">
+             S${d.series ?? d.serie ?? "-"}
+            </div>
+
             <div class="driver-header">
-                <div>
-                    <div class="driver-name">${d.name}</div>
-                    <div class="driver-team">${d.team || "Fahrer"}</div>
-                </div>
-                <div class="driver-series-badge">
-                    S${d.series ?? d.serie ?? "-"}
-                </div>
+            <div class="driver-name">${d.name}</div>
+            </div>
             </div>
 
             <div class="driver-stats">
