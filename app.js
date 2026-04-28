@@ -270,7 +270,7 @@ sorted.forEach(d => {
     card.innerHTML = `
         <div class="driver-card-left">
             <img 
-                src="assets/drivers/${imageFile}" 
+                src="${imageFile}" 
                 alt="${d.name}" 
                 class="driver-portrait"
             >
