@@ -5,12 +5,11 @@
 const driverImages = {
     "Max Verstappen": "Verstappen.png",
     "Lando Norris": "Norris.png",
-    "Gabriel Bortoleto": "Bortoleto.png",
+    "Gabriel Bortoleto": "Bortoletto.png",
     "Lance Stroll": "Stroll.png",
     "Esteban Ocon": "Ocon.png",
     "Nico Hülkenberg": "Hülkenberg.png",
     "Alex Albon": "Albon.png",
-    "Alexander Albon": "Albon.png",
     "Sergio Pérez": "Perez.png",
     "Oliver Bearman": "Bearman.png",
     "Isack Hadjar": "Hadjar.png",
@@ -260,47 +259,57 @@ function renderDrivers() {
     });
 
 sorted.forEach(d => {
-    const st = driverState[d.name];
-
     const card = document.createElement("div");
-    card.className = `driver-card ${d.team}`;
+    card.className = `driver-card ${d.team || ""}`;
 
     const imageFile = driverImages[d.name] || "default.png";
 
+    const stats = [
+        { label: "Überholen", key: "o" },
+        { label: "Verteidigen", key: "d" },
+        { label: "Qualifikation", key: "q" },
+        { label: "Rennstart", key: "s" },
+        { label: "Reifen", key: "t" }
+    ];
+
     card.innerHTML = `
-        <div class="driver-card-left">
+        <div class="driver-image-box">
             <img 
-                src="${imageFile}" 
+                src="assets/drivers/${imageFile}" 
                 alt="${d.name}" 
                 class="driver-portrait"
+                loading="lazy"
             >
         </div>
 
-        <div class="driver-card-right">
-            <div class="driver-name">${d.name}</div>
-            <div class="driver-series">Serie ${d.series ?? d.serie ?? "-"}</div>
+        <div class="driver-info-box">
+            <div class="driver-header">
+                <div>
+                    <div class="driver-name">${d.name}</div>
+                    <div class="driver-team">${d.team || "Fahrer"}</div>
+                </div>
+                <div class="driver-series-badge">
+                    S${d.series ?? d.serie ?? "-"}
+                </div>
+            </div>
 
-            <div class="driver-stats-list">
-                <div class="driver-stat-row">
-                    <span>Überholen</span>
-                    <strong>${calcDriverStat(d.name, "o")}</strong>
-                </div>
-                <div class="driver-stat-row">
-                    <span>Verteidigen</span>
-                    <strong>${calcDriverStat(d.name, "d")}</strong>
-                </div>
-                <div class="driver-stat-row">
-                    <span>Qualifikation</span>
-                    <strong>${calcDriverStat(d.name, "q")}</strong>
-                </div>
-                <div class="driver-stat-row">
-                    <span>Rennstart</span>
-                    <strong>${calcDriverStat(d.name, "s")}</strong>
-                </div>
-                <div class="driver-stat-row">
-                    <span>Reifenmanagement</span>
-                    <strong>${calcDriverStat(d.name, "t")}</strong>
-                </div>
+            <div class="driver-stats">
+                ${stats.map(stat => {
+                    const value = calcDriverStat(d.name, stat.key);
+                    const percent = Math.min(100, Math.max(0, value));
+
+                    return `
+                        <div class="driver-stat">
+                            <div class="driver-stat-top">
+                                <span>${stat.label}</span>
+                                <strong>${value}</strong>
+                            </div>
+                            <div class="driver-stat-bar">
+                                <div class="driver-stat-fill" style="width:${percent}%"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join("")}
             </div>
         </div>
     `;
