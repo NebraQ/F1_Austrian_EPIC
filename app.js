@@ -240,11 +240,11 @@ function renderDrivers() {
         const sa = driverState[a.name] || { level: 1, boost: false };
         const sb = driverState[b.name] || { level: 1, boost: false };
 
-        const ao = calcStatWithState(a.base.o, sa);
-        const ad = calcStatWithState(a.base.d, sa);
-        const aq = calcStatWithState(a.base.q, sa);
-        const as = calcStatWithState(a.base.s, sa);
-        const at = calcStatWithState(a.base.t, sa);
+        const ao = calcStatWithState(b.base.o, sb);
+        const ad = calcStatWithState(b.base.d, sb);
+        const aq = calcStatWithState(b.base.q, sb);
+        const as = calcStatWithState(b.base.s, sb);
+        const at = calcStatWithState(b.base.t, sb);
 
         const bo = calcStatWithState(b.base.o, sb);
         const bd = calcStatWithState(b.base.d, sb);
@@ -303,11 +303,11 @@ function renderDrivers() {
             </div>
 
             <div class="driver-stats">
-                <div class="stat-box">${t.attr_o}<br><b>${calcStat(d.base.o)}</b></div>
-                <div class="stat-box">${t.attr_d}<br><b>${calcStat(d.base.d)}</b></div>
-                <div class="stat-box">${t.attr_q}<br><b>${calcStat(d.base.q)}</b></div>
-                <div class="stat-box">${t.attr_s}<br><b>${calcStat(d.base.s)}</b></div>
-                <div class="stat-box">${t.attr_t}<br><b>${calcStat(d.base.t)}</b></div>
+            <div class="stat-box">${t.attr_o}<br><b>${calcStat("o")}</b></div>
+            <div class="stat-box">${t.attr_d}<br><b>${calcStat("d")}</b></div>
+            <div class="stat-box">${t.attr_q}<br><b>${calcStat("q")}</b></div>
+            <div class="stat-box">${t.attr_s}<br><b>${calcStat("s")}</b></div>
+            <div class="stat-box">${t.attr_t}<br><b>${calcStat("t")}</b></div>
             </div>
 
             <div style="margin-top:12px;">
