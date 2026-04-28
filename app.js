@@ -224,10 +224,15 @@ function renderDrivers() {
     container.innerHTML = "";
 
     // Hilfsfunktion: Wert mit Level & Boost
-    const calcStatWithState = (baseVal, state) => {
-        let newVal = val + (st.level - 1) * 4;
-        if (state.boost) v = Math.round(v * 1.1);
-        return v;
+    const calcStat = key => {
+    let newVal = st.stats[key];
+
+    if (st.boost) {
+        newVal = Math.round(newVal * 1.1);
+    }
+
+    return newVal;
+    };
     };
 
     // Sortierte Kopie der Fahrer
