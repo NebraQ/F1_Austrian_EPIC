@@ -56,7 +56,7 @@ const translations = {
         attr_t: "Reifenman.",
 
         // Track-Guide Legende
-        guideLegend: "⚡ Boost   🔋 Laden   🟢 DRS   💤 Neutral",
+        guideLegend: "⚡ Boost   🔋 Laden   🟢 Overtake   💤 Neutral",
 
         // Setup-Komponenten
         compBrakes: "Bremsen",
@@ -108,7 +108,7 @@ const translations = {
         attr_s: "Race Start",
         attr_t: "Tyre Mgmt",
 
-        guideLegend: "⚡ Boost   🔋 Charge   🟢 DRS   💤 Neutral",
+        guideLegend: "⚡ Boost   🔋 Charge   🟢 Overtake   💤 Neutral",
 
         compBrakes: "Brakes",
         compGearbox: "Gearbox",
@@ -905,331 +905,188 @@ document.getElementById("closeSetupPopup")?.addEventListener("click", () => {
 ----------------------------------------- */
 const guideTexts = {
     "Melbourne": `
-🏁 Start: ⚡ bis T1–2
-
-T1–2: ⚡
-T2–3: 🔋
-T3–7: ⚡ (Attacke)
-T7–11: 💤
-T11–14: ⚡
-ab T14: 💤 + 🟢 DRS
-
-Wiederholen & je nach Verkehr anpassen.
+Boost empfehlung:
+S: Prinz / Cuppa / Herold / Nazar
+A: Haken / Zeitlos / Kawaii / Kürbis
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Achtet auf das Reifenmanagment.
+Immer versuchen NICHT auf Hard-Reifen zu Fahren!
+z.B.: Nazar & Kürbis (mit Reifenm.) > Kurvenverhalten & Rennstart
 `,
     "Jeddah": `
-🏁 Start: ⚡ bis Ausgang T2
-
-T1–2: ⚡
-T3–12: 💤 (Feld sortiert sich)
-T12–13: 🔋
-T14–18: ⚡
-T18–26: 💤
-T27: ⚡, danach 🟢 DRS
-
-Bei Stau in T1–2 lieber etwas sparen.
+Boost empfehlung:
+S: Regenbogen / Vice / Ursprung
+A: Tulpe
+Basic: Hex , Basic Boosts (Nur bei Duellen)
+Tipp: Tulpe bei hoher Boxenstopp Zeit UND wenn mehr als 1x in die Box muss.
+(Boxenstopp Boost +20)
 `,
     "Miami": `
-🏁 Start: ⚡ bis T1–2
-
-T1–2: ⚡
-T3–6: 💤
-T7–8: ⚡
-T8–11: 💤
-T11–16: ⚡ (wichtige Push-Zone)
-lange Gerade: 🟢 + 💤
-T17–18: ⚡
-T19–1: 🔋
-
-Runde 1: lange Gerade unbedingt nutzen zum 🔋.
+Boost empfehlung:
+S: Unaufhaltsam / Ewiges Feuer (Reifenman.) / Schädel
+A: Feuerwerk / Strassenhai / Herzensbrecher / Eklipse / Weihnachten
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Je nach Fahrer, macht es Sinn den Rennstart oder Reifen mit zu Boosten!
+Bei Fahrer mit guten Reifenman. und Rennstart, unbedingt voll Überholen Boosten!
 `,
 
     "Silverstone": `
-🏁 Start: je nach Position kurz ⚡, sonst 💤
-
-T1–2: 💤
-T3–5: ⚡
-T5–6: 🟢 + 💤
-T6–7: ⚡
-T8–14: 💤 (flüssig)
-T14–15: situativ 🔋 oder 💤
-T15–18: ⚡
-Start/Ziel: 🔋
-
-Wichtig: DRS-Zonen je nach Verkehr geschickt einsetzen.
+Boost empfehlung:
+S: Adler / Temperament /
+A: Tödlich Schnell / Ewiges Feuer / Rookie Rausch / Krone
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Leider sind Adler und der neue Boost Temperament die einzigen wirklich brauchbaren!
 `,
 
     "Monaco": `
-🏁 Start: bei guter Linie ⚡ bis Ausgang T1
-
-T1: ⚡
-T1–4: 💤
-T4–8: ⚡
-T8–10: 🔋
-T10–11: ⚡
-T11–18: 💤
-T19–1: 💤 + 🟢
-
-Sehr abhängig vom Start + Verkehr in der Haarnadel – immer Situation lesen.
+Boost empfehlung:
+S: Ursprung / Lenker / Rentier / 
+A: Haken / Prinz / Dschinn / Preiselbeere / Zar / Movember
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Mit einem S12 Norris und Lenker, könnte man sogar mit Medium reifen 5/5 Runden fahren :)
 `,
 
     "Spielberg": `
-🏁 Start: ⚡ bis Ausgang T1
-
-Ausgang T1–T3: 💤
-T3–4: 🟢 + 💤
-T4–6: ⚡ (wichtig für Positionen)
-T6–10: 💤
-T10–1: 🔋
-
-DRS verschiebt sich – oft stark zwischen T3–4 und T1–3 nutzbar.
+Boost empfehlung:
+S: Prinz / Cuppa / Herold / Nazar
+A: Haken / Zeitlos / Kawaii / Kürbis
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Achtet auf das Reifenmanagment.
+Immer versuchen NICHT auf Hard-Reifen zu Fahren!
+z.B.: Nazar & Kürbis (mit Reifenm.) > Kurvenverhalten & Rennstart
 `,
 
     "Monza": `
-🏁 Start: Innenbahn ⚡, Außenbahn eher 💤 und nach T2 ⚡
-
-T1–2: wenn frei ⚡, sonst 💤
-T3–4: 🔋
-T4–7: ⚡
-T7–10: 💤
-T10–11: 🔋
-T11–1: 💤 + 🟢
-
-DRS stark zwischen T7–8 oder T11–1 – je nach Runde und Verkehr.
+Boost empfehlung:
+S: Regenbogen / Vice / Ursprung
+A: Tulpe
+Basic: Hex , Basic Boosts (Nur bei Duellen)
+Tipp: Tulpe bei hoher Boxenstopp Zeit UND wenn mehr als 1x in die Box muss.
+(Boxenstopp Boost +20)
 `,
 
     "Montreal": `
-🏁 Start: Innenbahn 💤, Außenbahn ⚡ (Überraschung bis T3 möglich)
-
-T1–4: ⚡
-T4–6: 💤
-T6–7: ⚡
-T7–10: 💤
-T10–11: ⚡
-T11–14: 💤 + 🟢
-T14–1: 🔋
-
-DRS + Antrieb gut timen, erste DRS-Zone ab Runde 2 vor T11 nutzen.
+Boost empfehlung:
+S: Startrampe / Surfer / Frost (Reifenman.)
+A: Konfetti / Sherryglas / Gladiator
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Achtet auf das Reifenmanagment, keine Hard-Reifen!
 `,
 
     "Hungaroring": `
-🏁 Start: ⚡ bis T3
-
-T1: ⚡
-T1–2: 💤
-T2–3: ⚡
-T3–4: 🔋
-T4–5: 💤
-T5–7: ⚡
-T7–11: 💤
-T11–12: 🔋
-T12–14: ⚡
-Start/Ziel: 💤 + 🟢
-
-DRS ab Runde 3 gut zwischen T2–4 einplanen.
+Boost empfehlung:
+S: Drache / Oud / Glitter / Preiselbeere
+A: Weihnachten / Herlod / Cuppa / Wild
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Achtet auf das Reifenmanagment, keine Hard-Reifen!
 `,
 
     "Zandvoort": `
-🏁 Start: Innen ⚡, Außen 💤
-
-T1–2: 💤
-T2–3: ⚡
-T3–7: 🔋
-T7–10: ⚡ (sehr stark)
-T10–11: 🔋
-T11–13: 💤 (bei Chance: voll ⚡)
-T13–1: 💤 + 🟢
-
-Zwischen T8–10 immer gut boosten, dort holst du viel raus.
+S: Ursprung / Lenker / Rentier / 
+A: Haken / Prinz / Dschinn / Preiselbeere / Zar / Movember
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Achtet auf das Reifenmanagment, keine Hard-Reifen!
 `,
 
     "Austin": `
-🏁 Start: ⚡, hoffen auf gute Linie in T1
-
-T1–10: eher 💤
-T10–11: ab Runde 2 🔋
-T11–12: 🟢 + 💤
-T12–15: ⚡
-T15–19: 💤
-T19–20: neutral/leicht ⚡
-T20–1: 🔋
-
-Runde 1: zwischen T10–11 ruhig einmal ⚡, ab Runde 2 eher 🔋.
+Boost empfehlung:
+S: Prinz / Cuppa / Herold / Nazar
+A: Haken / Zeitlos / Kawaii / Kürbis
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Achtet auf das Reifenmanagment.
+Immer versuchen NICHT auf Hard-Reifen zu Fahren!
+z.B.: Nazar & Kürbis (mit Reifenm.) > Kurvenverhalten & Rennstart
 `,
 
     "Shanghai": `
-🏁 Start: ⚡ bis ca. T6
-
-T1–4: ⚡
-T4–6: 🔋
-T6–8: 💤
-T8–10: ⚡
-T10–11: ab Runde 2 🔋 (Runde 1 eher ⚡)
-T11–13: ⚡
-T13–14: 💤 + 🟢 (Runde 1 auch 🔋 ok)
-T14–16: ⚡
-T16–1: 🔋
-
-Runde 1 aggressiv, danach lange Gerade eher zum 🔋 nutzen.
+Boost empfehlung:
+S: Eiserne Macht / Gladiator
+A: Osterei / Dschinn
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Mit Eiserne Macht S/S Reifen möglich
 `,
 
     "Baku": `
-🏁 Start: bei gutem Start ⚡, sonst 💤
-
-T1–3: 💤
-T3–6: ⚡
-T6–12: 💤
-T12–14: ab Runde 2 🔋
-T14–16: ⚡
-T16–1: 💤 + 🟢
-
-Ab Runde 2 kann man auch T1 zum Überholen nutzen, wenn Platz ist.
+Boost empfehlung:
+S: Schmetterling / Brezel / Frost
+A: Drache / Eiserne Macht / Rookie-Rausch
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Tipp: Achtet auf das Reifenmanagment, keine Hard-Reifen!
 `,
 
     "SaoPaulo": `
-🏁 Start: bei guter Position ⚡, sonst 💤
-
-T1–2: ⚡
-T2–4: 💤 + 🟢
-T4–6: 💤
-T6–10: ⚡ (Haupt-Push-Zone)
-T10–13: 💤
-T13–1: 🔋
-
-Boost ab Runde 2 intensiver nutzen, wenn das Feld auseinander ist.
+Boost empfehlung:
+S: Ghoultreibstoff / Drache / Unaufhaltsam /
+A: Glitter / Schädel / Hahn
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Achtet auf das Reifenmanagment, keine Hard-Reifen!
 `,
 
     "Las Vegas": `
-🏁 Start: ⚡
-
-T1–3: ⚡
-T3–5: 🔋 + ggf. 🟢
-T5–7: 💤
-T7–9: ⚡
-T9–12: 💤
-T12–13: ⚡
-T13–14: 🔋 + 🟢
-T14–16: ⚡
-T16–1: 💤 + 🟢
-
-Wichtig: ab Runde 2 DRS zwischen T3–5 nutzen und kurz vor Runde-Ende nochmal.
+Boost empfehlung:
+S: Unaufhaltsam / Ewiges Feuer (Reifenman.) / Schädel
+A: Feuerwerk / Strassenhai / Herzensbrecher / Eklipse / Weihnachten
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Je nach Fahrer, macht es Sinn den Rennstart oder Reifen mit zu Boosten!
+Bei Fahrer mit guten Reifenman. und Rennstart, unbedingt voll Überholen Boosten!
 `,
-
-    "Imola": `
-🏁 Start: groß ⚡, durch T2 nicht auffahren
-
-T1–2: 💤
-T2–6: ⚡
-T6–7: ab Runde 2 🔋
-T7–9: kurz ⚡, dann 🔋
-T9–13: 💤
-T13–15: ⚡
-T15–17: ab Runde 2 🔋
-T17–18: ⚡
-Start/Ziel: 💤 + 🟢
-
-Runde 1: deutlich aggressiver boosten, ab Runde 2 strukturiert fahren.
-`,
-
+   
     "Singapur": `
-🏁 Start: Innen 💤, Außen ⚡ (auf Innenlinie zielen)
-
-T1–3: ⚡
-T3–9: ab Runde 2 🔋 (Runde 1 ggf. leicht ⚡)
-T9–13: ⚡
-T13–14: 💤
-T14–17: 💤 + 🟢
-T17–18: ⚡
-T18–1: 🔋
-
-Boost zwischen T10–13 sehr effektiv – vermeide sinnlosen ⚡ zwischen T7–9.
+Boost empfehlung:
+S: Strassenhai / Herzensbrecher / Überladen
+A: Feuerwerk / Champion / Zeitlos
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Je nachdem, macht es Sinn 2x in die Box zu fahren.
+H/H oder S/H/S
 `,
 
     "Mexico": `
-🏁 Start: ⚡ bis Ausgang T3
-
-T1–3: ⚡
-T3–4: 🔋
-T4–6: ⚡
-T6–12: ab Runde 2 💤/🔋
-T12–16: ⚡
-T16–1: 💤 + 🟢
-
-Zwischen T12–16 am meisten Pace holen – immer etwas Antrieb übrig lassen.
+Boost empfehlung:
+S: Schmetterling / Brezel / Frost
+A: Drache / Eiserne Macht / Rookie-Rausch
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Tipp: Achtet auf das Reifenmanagment, keine Hard-Reifen!
 `,
 
     "Spa": `
-🏁 Start: innen ⚡ bis Ausgang T1, außen eher 💤
-
-T1–4: 💤
-T4–5: 🟢
-T5–9: ⚡ (Schlüsselpassage)
-T9–12: 💤
-T12–14: ⚡
-T14–18: 🔋
-T18–1: 💤
-
-DRS T4–7 ist fast Pflicht – kombiniert mit ⚡ kannst du mehrere Autos schnappen.
+Boost empfehlung:
+S: Ghoultreibstoff / Drache / Unaufhaltsam / Taurus
+A: Glitter / Schädel / Hahn
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Achtet auf das Reifenmanagment, keine Hard-Reifen!
 `,
 
     "AbuDhabi": `
-🏁 Start: ⚡ bis ca. T3
-
-T1–2: ⚡
-T2–4: 💤
-T4–5: ab Runde 2 🔋
-T5–6: 🟢 + 💤
-T6–7: ⚡
-T7–9: ab Runde 2 🔋
-T9–12: 💤
-T12–16: ⚡
-T16–1: ab Runde 2 🔋
-
-Zwischen T12–16 maximalen Boost-Einsatz, DRS je nach Verschiebung anpassen.
+Boost empfehlung:
+S: Unaufhaltsam / Ewiges Feuer (Reifenman.) / Schädel
+A: Feuerwerk / Strassenhai / Herzensbrecher / Eklipse / Weihnachten
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Je nach Fahrer, macht es Sinn den Rennstart oder Reifen mit zu Boosten!
+Bei Fahrer mit guten Reifenman. und Rennstart, unbedingt voll Überholen Boosten!
 `,
 
     "Sakhir": `
-🏁 Start: ⚡ bis Ausgang T2
-
-T1–2: ⚡
-T2–4: 🔋
-T4–8: ⚡
-T8–10: ab Runde 2 🔋
-T10: ⚡
-T10–13: 💤
-T13: ⚡
-T13–14: ab Runde 2 🔋
-T14–1: 💤 + 🟢
-
-Besonders T5–8 mit ⚡ sehr stark – dort immer etwas Antrieb einplanen.
+Boost empfehlung:
+S: Schmetterling / Brezel / Frost
+A: Drache / Eiserne Macht / Rookie-Rausch
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Tipp: Achtet auf das Reifenmanagment, keine Hard-Reifen!
 `,
 
     "Barcelona": `
-🏁 Start: 💤 (Start ist nicht alles)
-
-T1–2: ⚡
-T2–4: 💤
-T4–5: ⚡
-T5–9: 💤
-T9–10: ab Runde 2 🔋
-T10–12: ⚡
-T12–14: 💤
-T14–1: 💤 + 🟢
-
-Wenn DRS sich verschiebt, zwischen T9–10 nutzen und vor Start/Ziel etwas 🔋.
+Boost empfehlung:
+S: Adler / Temperament /
+A: Tödlich Schnell / Ewiges Feuer / Rookie Rausch / Krone
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Leider sind Adler und der neue Boost Temperament die einzigen wirklich brauchbaren!
 `,
 
     "Suzuka": `
-🏁 Start: ⚡ bis Ausgang T2
-
-T1–2: ⚡
-T2–9: 💤 (S-Kurven sauber fahren)
-T9–11: ⚡
-T11–14: 💤
-T14–16: 💤 + 🟢
-T16–18: ⚡
-T18–1: 🔋
-
-Zwischen T9–11 ist Boost der Schlüssel zum Überholen. DRS meist besser T14–16.
+Boost empfehlung:
+S: Zar / Kürbis / Movember
+A: Krone / Nazar
+Basic: Basic Boosts (Nur bei Duellen)
+Tipp: Tipp: Achtet auf das Reifenmanagment, keine Hard-Reifen!
 `
 };
 
