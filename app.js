@@ -403,6 +403,7 @@ function openDriverEditPopup(name) {
     popup.dataset.driverName = driver.name;
     updateDriverEditPreview(driver.name);
 
+    document.body.classList.add("modal-open");
     popup.classList.remove("hidden");
 }
 
@@ -469,6 +470,7 @@ function saveDriverEdit(name) {
 
 function closeDriverEditPopup() {
     document.getElementById("driver-edit-popup")?.classList.add("hidden");
+    document.body.classList.remove("modal-open");
 }
 
 function renderStatInput(name, key, label) {
