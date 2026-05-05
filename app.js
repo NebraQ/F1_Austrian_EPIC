@@ -543,29 +543,28 @@ function formatLaps(track) {
 }
 
 const tracks = [
-    { id:1,  name:"Melbourne",  main1:"Rennstart",        main2:"Tempo",           img:"01_Melbourne.png",  laps: 9 },
-    { id:2,  name:"Jeddah",     main1:"Reifenmanagement", main2:"Tempo",           img:"02_Jeddah.png",     laps: 8 },
-    { id:3,  name:"Miami",      main1:"Verteidigen",      main2:"Tempo",           img:"03_Miami.png",      laps: 6 },
-    { id:4,  name:"Silverstone",main1:"Reifenmanagement", main2:"Tempo",           img:"04_Silverstone.png",laps: 8 },
-    { id:5,  name:"Monaco",     main1:"Verteidigen",      main2:"Kurvenverhalten", img:"05_Monaco.png",     laps: 7 },
-    { id:6,  name:"Spielberg",  main1:"Verteidigen",      main2:"Tempo",           img:"06_Spielberg.png",  laps: 10 },
-    { id:7,  name:"Monza",      main1:"Verteidigen",      main2:"Tempo",           img:"07_Monza.png",      laps: 9 },
-    { id:8,  name:"Montreal",   main1:"Überholen",        main2:"Kurvenverhalten", img:"08_Montreal.png",   laps: 8 },
-    { id:9,  name:"Hungaroring",main1:"Rennstart",        main2:"Kurvenverhalten", img:"09_Hungaroring.png",laps: 9 },
-    { id:10, name:"Zandvoort",  main1:"Verteidigen",      main2:"Kurvenverhalten", img:"10_Zandvoort.png",  laps: 8 },
-    { id:11, name:"Austin",     main1:"Reifenmanagement", main2:"Kurvenverhalten", img:"11_Austin.png",     laps: 6 },
-    { id:12, name:"Shanghai",   main1:"Überholen",        main2:"Antrieb",         img:"12_Shanghai.png",   laps: 7 },
-    { id:13, name:"Baku",       main1:"Überholen",        main2:"Tempo",           img:"13_Baku.png",       laps: 7 },
-    { id:14, name:"SaoPaulo",   main1:"Überholen",        main2:"Kurvenverhalten", img:"14_SaoPaulo.png",   laps: 9 },
-    { id:15, name:"Las Vegas",  main1:"Überholen",        main2:"Tempo",           img:"15_LasVegas.png",   laps: 6 },
-    { id:16, name:"Imola",      main1:"Rennstart",        main2:"Antrieb",         img:"16_Imola.png",      laps: 9 },
-    { id:17, name:"Singapur",   main1:"Rennstart",        main2:"Antrieb",         img:"17_Singapur.png",   laps: 6 },
-    { id:18, name:"Mexico",     main1:"Rennstart",        main2:"Antrieb",         img:"18_Mexico.png",     laps: 9 },
-    { id:19, name:"Spa",        main1:"Reifenmanagement", main2:"Antrieb",         img:"19_Spa.png",        laps: 6 },
-    { id:20, name:"AbuDhabi",   main1:"Überholen",        main2:"Antrieb",         img:"20_AbuDhabi.png",   laps: 8 },
-    { id:21, name:"Sakhir",     main1:"Reifenmanagement", main2:"Antrieb",         img:"21_Sakhir.png",     laps: 8 },
-    { id:22, name:"Barcelona",  main1:"Reifenmanagement", main2:"Kurvenverhalten", img:"22_Barcelona.png",  laps: 10 },
-    { id:23, name:"Suzuka",     main1:"Verteidigen",      main2:"Kurvenverhalten", img:"23_Suzuka.png",     laps: 7 }
+    { id:1,  name:"Melbourne",   main1:"Rennstart",         main2:"Kurvenverhalten", img:"01_Melbourne.png",   laps: 9 },
+    { id:2,  name:"Jeddah",      main1:"Verteidigen",       main2:"Tempo",           img:"02_Jeddah.png",      laps: 4 },
+    { id:3,  name:"Miami",       main1:"Überholen",         main2:"Tempo",           img:"03_Miami.png",       laps: 6 },
+    { id:4,  name:"Silverstone", main1:"Reifenmanagement",  main2:"Tempo",           img:"04_Silverstone.png", laps: 7 },
+    { id:5,  name:"Monaco",      main1:"Verteidigen",       main2:"Kurvenverhalten", img:"05_Monaco.png",      laps: 5 },
+    { id:6,  name:"Spielberg",   main1:"Rennstart",         main2:"Kurvenverhalten", img:"06_Spielberg.png",   laps: 7 },
+    { id:7,  name:"Monza",       main1:"Verteidigen",       main2:"Tempo",           img:"07_Monza.png",       laps: 6 },
+    { id:8,  name:"Montreal",    main1:"Rennstart",         main2:"Antrieb",         img:"08_Montreal.png",    laps: 8 },
+    { id:9,  name:"Hungaroring", main1:"Überholen",         main2:"Kurvenverhalten", img:"09_Hungaroring.png", laps: 6 },
+    { id:10, name:"Zandvoort",   main1:"Verteidigen",       main2:"Kurvenverhalten", img:"10_Zandvoort.png",   laps: 8 },
+    { id:11, name:"Austin",      main1:"Rennstart",         main2:"Kurvenverhalten", img:"11_Austin.png",      laps: 6 },
+    { id:12, name:"Shanghai",    main1:"Verteidigen",       main2:"Antrieb",         img:"12_Shanghai.png",    laps: 7 },
+    { id:13, name:"Baku",        main1:"Reifenmanagement",  main2:"Antrieb",         img:"13_Baku.png",        laps: 7 },
+    { id:14, name:"São Paulo",   main1:"Überholen",         main2:"Antrieb",         img:"14_SaoPaulo.png",    laps: 5 },
+    { id:15, name:"Las Vegas",   main1:"Überholen",         main2:"Tempo",           img:"15_LasVegas.png",    laps: 6 },
+    { id:16, name:"Singapur",    main1:"Rennstart",         main2:"Tempo",           img:"17_Singapur.png",    laps: 6 },
+    { id:17, name:"Mexico City", main1:"Reifenmanagement",  main2:"Antrieb",         img:"18_Mexico.png",      laps: 9 },
+    { id:18, name:"Spa",         main1:"Überholen",         main2:"Antrieb",         img:"19_Spa.png",         laps: 6 },
+    { id:19, name:"Abu Dhabi",   main1:"Überholen",         main2:"Tempo",           img:"20_AbuDhabi.png",    laps: 8 },
+    { id:20, name:"Sakhir",      main1:"Reifenmanagement",  main2:"Antrieb",         img:"21_Sakhir.png",      laps: 8 },
+    { id:21, name:"Barcelona",   main1:"Reifenmanagement",  main2:"Tempo",           img:"22_Barcelona.png",   laps: 10 },
+    { id:22, name:"Suzuka",      main1:"Reifenmanagement",  main2:"Kurvenverhalten", img:"23_Suzuka.png",      laps: 5 }
 ];
 
 
@@ -592,8 +591,14 @@ function renderTrackList() {
 
 
 function getGuideText(trackName) {
-    // aktuell nur DE – später EN-Variante möglich
-    return guideTexts[trackName] || (currentLang === "en" ? "No guide yet." : "Keine Beschreibung vorhanden.");
+    const guideNameMap = {
+        "São Paulo": "SaoPaulo",
+        "Mexico City": "Mexico",
+        "Abu Dhabi": "AbuDhabi"
+    };
+
+    const key = guideNameMap[trackName] || trackName;
+    return guideTexts[key] || (currentLang === "en" ? "No guide yet." : "Keine Beschreibung vorhanden.");
 }
 
 function openTrackPopup(track) {
