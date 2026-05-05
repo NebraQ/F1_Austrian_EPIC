@@ -175,28 +175,34 @@ const drivers = [
     { name: "Lando Norris",          series: 12, team: "team-orange", base: { o:34,d:39,q:59,s:34,t:54 } },
 ];
 
-/* Driver Level & Boost State */
+const driverStatMeta = [
+    { key: "o", labelDE: "Überholen",     labelEN: "Overtaking" },
+    { key: "d", labelDE: "Verteidigen",   labelEN: "Defending" },
+    { key: "q", labelDE: "Qualifikation", labelEN: "Qualifying" },
+    { key: "s", labelDE: "Rennstart",     labelEN: "Race Start" },
+    { key: "t", labelDE: "Reifen",        labelEN: "Tyres" }
+];
+
 let driverState = {};
 
-drivers.forEach(d => {
-    driverState[d.name] = {
+drivers.forEach(driver => {
+    driverState[driver.name] = {
         level: 1,
         boost: false,
-        stats: {
-            o: d.base.o,
-            d: d.base.d,
-            q: d.base.q,
-            s: d.base.s,
-            t: d.base.t
-        }
+        stats: { ...driver.base }
     };
 });
 
-/* Driver Sort*/
 let driverSortMode = localStorage.getItem("ae_driver_sort_mode") || "name";
+
+function getDriverStatLabel(stat) {
+    return currentLang === "en" ? stat.labelEN : stat.labelDE;
+}
 
 function calcDriverStat(name, key) {
     const st = driverState[name];
+    if (!st || !st.stats) return 0;
+
     let val = Number(st.stats[key]) || 0;
 
     if (st.boost) {
@@ -204,6 +210,18 @@ function calcDriverStat(name, key) {
     }
 
     return val;
+}
+
+function calcSuggestedStatsFromLevel(driver, newLevel) {
+    const safeLevel = Math.max(1, parseInt(newLevel, 10) || 1);
+    const levelDiff = safeLevel - 1;
+    const nextStats = {};
+
+    driverStatMeta.forEach(stat => {
+        nextStats[stat.key] = Number(driver.base[stat.key] || 0) + (levelDiff * 4);
+    });
+
+    return nextStats;
 }
 
 function renderDriverSortBar() {
@@ -233,7 +251,6 @@ function setDriverSortMode(mode) {
 }
 
 function renderDrivers() {
-    const t = translations[currentLang];
     const container = document.getElementById("driver-list");
     if (!container) return;
 
@@ -245,11 +262,12 @@ function renderDrivers() {
             return a.name.localeCompare(b.name, "de");
         }
 
-        let va, vb;
+        let va;
+        let vb;
 
         if (driverSortMode === "overall") {
-            va = ["o","d","q","s","t"].reduce((sum, k) => sum + calcDriverStat(a.name, k), 0);
-            vb = ["o","d","q","s","t"].reduce((sum, k) => sum + calcDriverStat(b.name, k), 0);
+            va = driverStatMeta.reduce((sum, stat) => sum + calcDriverStat(a.name, stat.key), 0);
+            vb = driverStatMeta.reduce((sum, stat) => sum + calcDriverStat(b.name, stat.key), 0);
         } else {
             va = calcDriverStat(a.name, driverSortMode);
             vb = calcDriverStat(b.name, driverSortMode);
@@ -258,69 +276,203 @@ function renderDrivers() {
         return vb - va;
     });
 
-sorted.forEach(d => {
-    const card = document.createElement("div");
-    card.className = `driver-card ${d.team || ""}`;
+    sorted.forEach(driver => {
+        const state = driverState[driver.name];
+        const imageFile = driverImages[driver.name] || "default.png";
 
-    const imageFile = driverImages[d.name] || "default.png";
+        const card = document.createElement("div");
+        card.className = `driver-card ${driver.team || ""}`;
 
-    const stats = [
-        { label: "Überholen", key: "o" },
-        { label: "Verteidigen", key: "d" },
-        { label: "Qualifikation", key: "q" },
-        { label: "Rennstart", key: "s" },
-        { label: "Reifen", key: "t" }
-    ];
+        card.innerHTML = `
+            <div class="driver-left">
+                <img
+                    src="assets/drivers/${imageFile}"
+                    alt="${driver.name}"
+                    class="driver-img"
+                    loading="lazy"
+                >
+                <div class="driver-name">${driver.name}</div>
+                <div class="driver-series">
+                    S${driver.series} · Level ${state.level}
+                </div>
+            </div>
 
-    card.innerHTML = `
-        <div class="driver-image-box">
-            <img 
-                src="assets/drivers/${imageFile}" 
-                alt="${d.name}" 
-                class="driver-portrait"
-                loading="lazy"
-            >
+            <div class="driver-right">
+                <div class="driver-boost-row">
+                    <span class="boost-star ${state.boost ? "active" : ""}"
+                          onclick="toggleBoost('${driver.name}')">⭐</span>
+                    <span class="boost-text">${translations[currentLang].boost10}</span>
+                    <button class="driver-edit-btn"
+                            onclick="openDriverEditPopup('${driver.name}')">
+                        Werte / Level
+                    </button>
+                </div>
+
+                <div class="driver-stats">
+                    ${driverStatMeta.map(stat => {
+                        const value = calcDriverStat(driver.name, stat.key);
+                        const percent = Math.min(100, Math.max(0, value));
+
+                        return `
+                            <div class="driver-stat">
+                                <div class="driver-stat-top">
+                                    <span>${getDriverStatLabel(stat)}</span>
+                                    <strong>${value}</strong>
+                                </div>
+                                <div class="driver-stat-bar">
+                                    <div class="driver-stat-fill" style="width:${percent}%"></div>
+                                </div>
+                            </div>
+                        `;
+                    }).join("")}
+                </div>
+            </div>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+function toggleBoost(name) {
+    driverState[name].boost = !driverState[name].boost;
+    saveState();
+    renderDrivers();
+}
+
+function openDriverEditPopup(name) {
+    const driver = drivers.find(d => d.name === name);
+    const state = driverState[name];
+
+    if (!driver || !state) return;
+
+    let popup = document.getElementById("driver-edit-popup");
+
+    if (!popup) {
+        popup = document.createElement("div");
+        popup.id = "driver-edit-popup";
+        popup.className = "popup hidden";
+
+        popup.innerHTML = `
+            <div class="popup-content driver-edit-popup-content">
+                <span id="closeDriverEditPopup" class="close-btn">✖</span>
+                <h2 id="driver-edit-title"></h2>
+                <div id="driver-edit-body"></div>
+            </div>
+        `;
+
+        document.body.appendChild(popup);
+
+        document.getElementById("closeDriverEditPopup").addEventListener("click", closeDriverEditPopup);
+    }
+
+    const body = document.getElementById("driver-edit-body");
+    const title = document.getElementById("driver-edit-title");
+
+    title.textContent = `${driver.name} bearbeiten`;
+
+    body.innerHTML = `
+        <div class="driver-edit-level-row">
+            <label>Aktuelles Level:</label>
+            <strong>${state.level}</strong>
         </div>
 
-        <div class="driver-info-box">
-            <div class="driver-series-badge">
-             S${d.series ?? d.serie ?? "-"}
-            </div>
+        <div class="driver-edit-level-row">
+            <label for="driver-edit-level">Neues Level:</label>
+            <input id="driver-edit-level"
+                   type="number"
+                   min="1"
+                   max="99"
+                   value="${state.level}">
+        </div>
 
-            <div class="driver-header">
-            <div class="driver-name">${d.name}</div>
-            </div>
-            </div>
+        <div class="driver-edit-hint">
+            Vorschlag rechnet aktuell mit +4 pro Level. Du kannst jeden Wert danach manuell überschreiben.
+        </div>
 
-            <div class="driver-stats">
-                ${stats.map(stat => {
-                    const value = calcDriverStat(d.name, stat.key);
-                    const percent = Math.min(100, Math.max(0, value));
+        <div id="driver-edit-stats"></div>
 
-                    return `
-                        <div class="driver-stat">
-                            <div class="driver-stat-top">
-                                <span>${stat.label}</span>
-                                <strong>${value}</strong>
-                            </div>
-                            <div class="driver-stat-bar">
-                                <div class="driver-stat-fill" style="width:${percent}%"></div>
-                            </div>
-                        </div>
-                    `;
-                }).join("")}
-            </div>
+        <div class="driver-edit-actions">
+            <button type="button" class="driver-cancel-btn" onclick="closeDriverEditPopup()">Abbrechen</button>
+            <button type="button" class="driver-save-btn" onclick="saveDriverEdit('${driver.name}')">Speichern</button>
         </div>
     `;
 
-    container.appendChild(card);
-});
-   
+    const levelInput = document.getElementById("driver-edit-level");
+    levelInput.addEventListener("input", () => updateDriverEditPreview(driver.name));
+
+    popup.dataset.driverName = driver.name;
+    updateDriverEditPreview(driver.name);
+
+    popup.classList.remove("hidden");
+}
+
+function updateDriverEditPreview(name) {
+    const driver = drivers.find(d => d.name === name);
+    const state = driverState[name];
+
+    if (!driver || !state) return;
+
+    const levelInput = document.getElementById("driver-edit-level");
+    const statsBox = document.getElementById("driver-edit-stats");
+
+    if (!levelInput || !statsBox) return;
+
+    const newLevel = Math.max(1, parseInt(levelInput.value, 10) || 1);
+    const suggestedStats = calcSuggestedStatsFromLevel(driver, newLevel);
+
+    statsBox.innerHTML = driverStatMeta.map(stat => {
+        const oldValue = Number(state.stats[stat.key]) || 0;
+        const newValue = suggestedStats[stat.key];
+        const diff = newValue - oldValue;
+        const diffText = diff > 0 ? `+${diff}` : `${diff}`;
+
+        return `
+            <div class="driver-edit-stat-row">
+                <label>${getDriverStatLabel(stat)}</label>
+
+                <div class="driver-edit-old">
+                    Alt: <strong>${oldValue}</strong>
+                </div>
+
+                <input type="number"
+                       min="0"
+                       max="999"
+                       id="driver-edit-stat-${stat.key}"
+                       value="${newValue}">
+
+                <div class="driver-edit-diff ${diff >= 0 ? "positive" : "negative"}">
+                    ${diffText}
+                </div>
+            </div>
+        `;
+    }).join("");
+}
+
+function saveDriverEdit(name) {
+    const state = driverState[name];
+    if (!state) return;
+
+    const levelInput = document.getElementById("driver-edit-level");
+    const newLevel = Math.max(1, parseInt(levelInput?.value, 10) || 1);
+
+    state.level = newLevel;
+
+    driverStatMeta.forEach(stat => {
+        const input = document.getElementById(`driver-edit-stat-${stat.key}`);
+        state.stats[stat.key] = Math.max(0, parseInt(input?.value, 10) || 0);
+    });
+
+    saveState();
+    closeDriverEditPopup();
+    renderDrivers();
+}
+
+function closeDriverEditPopup() {
+    document.getElementById("driver-edit-popup")?.classList.add("hidden");
 }
 
 function renderStatInput(name, key, label) {
     const rawValue = driverState[name].stats[key];
-    const displayValue = calcDriverStat(name, key);
 
     return `
         <div class="stat-box">
@@ -331,19 +483,12 @@ function renderStatInput(name, key, label) {
                    max="999"
                    value="${rawValue}"
                    onchange="updateDriverStat('${name}', '${key}', this.value)">
-            ${driverState[name].boost ? `<small>Boost: ${displayValue}</small>` : ""}
         </div>
     `;
 }
 
 function updateDriverStat(name, key, val) {
     driverState[name].stats[key] = parseInt(val, 10) || 0;
-    saveState();
-    renderDrivers();
-}
-
-function toggleBoost(name) {
-    driverState[name].boost = !driverState[name].boost;
     saveState();
     renderDrivers();
 }
