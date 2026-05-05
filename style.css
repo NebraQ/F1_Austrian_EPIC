@@ -163,10 +163,10 @@ header h1 {
 .driver-img {
     width: 118px;
     height: 180px;
-    object-fit: contain;
-    object-position: bottom center;
+    object-fit: cover;
+    object-position: top center;
 
-    border-radius: 10px;
+    border-radius: 12px;
     background: rgba(0,0,0,0.06);
     filter: drop-shadow(0 10px 14px rgba(0,0,0,0.35));
 }
@@ -301,8 +301,10 @@ body.dark .driver-stat-input {
     }
 
     .driver-img {
-        width: 112px;
-        height: 172px;
+       width: 112px;
+       height: 172px;
+       object-fit: cover;
+       object-position: top center;
     }
 
     .driver-name {
@@ -1022,4 +1024,34 @@ body.dark .driver-edit-btn {
         padding: 4px 7px;
         font-size: 0.62rem;
     }
+}
+
+
+body.modal-open {
+    overflow: hidden;
+    touch-action: none;
+}
+
+#driver-edit-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 20000;
+    background: rgba(0,0,0,0.78);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px;
+    box-sizing: border-box;
+}
+
+#driver-edit-popup.hidden {
+    display: none;
+}
+
+#driver-edit-popup .popup-content {
+    width: 100%;
+    max-width: 520px;
+    max-height: 88vh;
+    overflow-y: auto;
+    position: relative;
 }
